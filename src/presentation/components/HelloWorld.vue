@@ -7,7 +7,7 @@
       <v-img
         class="mb-4"
         height="150"
-        src="@/assets/logo.png"
+        src="@/presentation/assets/logo.png"
       />
 
       <div class="text-center">

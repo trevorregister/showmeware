@@ -23,10 +23,10 @@ export default defineConfig({
     Vuetify({
       autoImport: true,
       styles: {
-        configFile: 'src/styles/settings.scss',
+        configFile: 'src/presentation/styles/settings.scss',
       },
     }),
-    Components(),
+    Components({dirs: ['src/presentation/components']}),
     Fonts({
       google: {
         families: [{
