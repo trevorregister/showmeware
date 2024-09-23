@@ -11,7 +11,16 @@ const client = inject('$client')
 
 async function getProfileByUserId(id) {
   profile.value = await client.profiles.getProfileByUserId(id)
+}
 
+async function newUser(){
+  await client.users.signUpNewUser({
+    email: 'abc@email.com',
+    password: 'asdfasdf',
+    options: {}
+  })
+  
+  
 }
 
 onMounted(() => {
