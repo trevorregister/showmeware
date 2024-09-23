@@ -7,6 +7,8 @@ const UserRepo = {
             password: password,
             options: {...options}
         })
+
+        return data
     },
 
     async signInWithEmailPassword({email, password}){
