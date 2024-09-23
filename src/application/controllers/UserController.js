@@ -1,3 +1,4 @@
+import SignInWithEmailPassword from "../use-cases/users/SignInWithEmailPassword"
 import SignUpNewUser from "../use-cases/users/SignUpNewUser"
 
 const UserController = {
@@ -6,6 +7,13 @@ const UserController = {
             email: email,
             password: password,
             options: {...options}
+        })
+    },
+
+    async signInWithEmailPassword({email, password}){
+        return await SignInWithEmailPassword.execute({
+            email: email,
+            password: password
         })
     }
 }

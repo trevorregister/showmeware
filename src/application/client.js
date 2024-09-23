@@ -10,6 +10,11 @@ const client = {
             email: email,
             password: password,
             options: {...options}
+        }),
+
+        signInWithEmailPassword: async({email, password}) => UserController.signInWithEmailPassword({
+            email: email,
+            password: password
         })
     }
 }

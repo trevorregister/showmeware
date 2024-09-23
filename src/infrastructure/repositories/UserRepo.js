@@ -7,8 +7,15 @@ const UserRepo = {
             password: password,
             options: {...options}
         })
+    },
 
-        console.log(error)
+    async signInWithEmailPassword({email, password}){
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: password
+        })
+
+        return data
     }
 }
 
