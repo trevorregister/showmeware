@@ -18,7 +18,11 @@ const UserRepo = {
         })
 
         return data
-    }
+    },
+
+    async signOut(){
+        await supabase.auth.signOut()
+    },
 }
 
 export default UserRepo

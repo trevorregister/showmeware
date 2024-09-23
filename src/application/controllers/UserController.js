@@ -1,5 +1,8 @@
-import SignInWithEmailPassword from "../use-cases/users/SignInWithEmailPassword"
-import SignUpNewUser from "../use-cases/users/SignUpNewUser"
+import { 
+    SignUpNewUser,
+    SignInWithEmailPassword,
+    SignOut
+} from '../use-cases/users/index'
 
 const UserController = {
     async signUpNewUser({email, password, options}){
@@ -15,6 +18,10 @@ const UserController = {
             email: email,
             password: password
         })
+    },
+
+    async signOut(){
+        return await SignOut.execute()
     }
 }
 

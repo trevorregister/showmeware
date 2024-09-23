@@ -7,12 +7,18 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router/auto'
 import Index from '../pages/index.vue'
+import LoginPage from '../pages/LoginPage.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Index',
     component: Index
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginPage
   }
 ]
 

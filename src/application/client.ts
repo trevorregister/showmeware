@@ -15,7 +15,9 @@ const client = {
         signInWithEmailPassword: async({email, password}: {email: string, password: string}) => UserController.signInWithEmailPassword({
             email: email,
             password: password
-        })
+        }),
+
+        signOut: async() => UserController.signOut()
     }
 }
 
