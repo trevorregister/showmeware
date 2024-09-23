@@ -6,7 +6,7 @@ const client = {
         getProfileByUserId: async (user_id) => ProfileController.getProfileByUserId(user_id)
     },
     users: {
-        signUpNewUser: async ({email, password, options}) => UserController.signUpNewUser({
+        signUpNewUser: async ({email, password, options = {}}) => UserController.signUpNewUser({
             email: email,
             password: password,
             options: {...options}
@@ -14,4 +14,4 @@ const client = {
     }
 }
 
-export default client
+export { client }
