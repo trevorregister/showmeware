@@ -6,6 +6,7 @@
         "jsx": "preserve",
         "moduleResolution": "node",
         "esModuleInterop": true,
+        "noImplicitAny": false,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
         "baseUrl": ".",
@@ -17,7 +18,7 @@
         "src/**/*.ts",
         "src/**/*.tsx",
         "src/**/*.vue"
-    ],
+, "src/application/client.js"    ],
     "exclude": [
         "node_modules"
     ]

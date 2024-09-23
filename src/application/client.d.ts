@@ -1,4 +1,4 @@
-declare module './client' {
+declare module 'client' {
     export const client: {
         profiles: {
             getProfileByUserId(user_id: string): Promise<any>;

@@ -25,7 +25,6 @@ async function signIn(){
     email: 'trevorregister@gmail.com',
     password: "3sintheta"
   })
-
 }
 
 onMounted(() => {
