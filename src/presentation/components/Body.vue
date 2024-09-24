@@ -18,15 +18,21 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+const props = defineProps({
+  imgSrc: {
+    type: String,
+    required: true
+  }
+})
 
-const stageWidth = ref(800)
+const stageWidth = ref(400)
 const stageHeight = ref(600)
 const circles = ref([])
 const image = ref(null)
 
 const stageSize = computed(() => ({
-  width: 800,
-  height: 600
+  width: stageWidth.value,
+  height: stageHeight.value
 }))
 
 const handleStageClick = (e) => {
@@ -45,10 +51,11 @@ const handleStageClick = (e) => {
 }
 
 const setImage = () => {
+  console.log(stageSize)
   const img = new window.Image()
-  img.width = 800
-  img.height = 600
-  img.src = '/body.svg'
+  img.width = stageSize.value.width
+  img.height = stageSize.value.height
+  img.src = props.imgSrc
 
   img.onload = () =>{
     image.value = img

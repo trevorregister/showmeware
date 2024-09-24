@@ -2,7 +2,11 @@
   <p>Profile</p>
   {{ profile }}
   <v-btn @click="signOut">Logout</v-btn>
-  <Body/>
+  <v-row>
+    <v-col class="bg-white">
+      <Body :imgSrc="'/body-front.svg'"/>
+    </v-col>
+  </v-row>
 </template>
 
 <script setup>
