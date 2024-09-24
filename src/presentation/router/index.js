@@ -8,6 +8,7 @@
 import { createRouter, createWebHistory } from 'vue-router/auto'
 import Index from '../pages/index.vue'
 import LoginPage from '../pages/LoginPage.vue'
+import CreateAccountPage from '../pages/CreateAccountPage.vue'
 
 const routes = [
   {
@@ -19,6 +20,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: LoginPage
+  },
+  {
+    path: '/create-account',
+    name: 'Create Account',
+    component: CreateAccountPage
   }
 ]
 

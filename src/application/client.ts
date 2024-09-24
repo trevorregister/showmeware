@@ -11,12 +11,11 @@ const client = {
             password: password,
             options: {...options}
         }),
-
         signInWithEmailPassword: async({email, password}: {email: string, password: string}) => UserController.signInWithEmailPassword({
             email: email,
             password: password
         }),
-
+        signInWithOauth: async(provider: string) => UserController.signInWithOauth(provider),
         signOut: async() => UserController.signOut()
     }
 }
