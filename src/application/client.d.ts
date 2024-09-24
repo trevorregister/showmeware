@@ -7,6 +7,7 @@ declare module 'client' {
             signUpNewUser(data: { email: string; password: string; options?: object }): Promise<any>
             signInWithEmailPassword(data: { email: string; password: string }): Promise<any>
             signOut(): Promise<any>
+            signInWithOauth(provider: string): Promise<any>
         }
     }
 }
