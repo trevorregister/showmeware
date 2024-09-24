@@ -51,7 +51,6 @@ const handleStageClick = (e) => {
 }
 
 const setImage = () => {
-  console.log(stageSize)
   const img = new window.Image()
   img.width = stageSize.value.width
   img.height = stageSize.value.height
