@@ -16,7 +16,7 @@
                   prepend-icon="mdi-email"
                   type="email"
                   required
-                /><
+                />
   
                 <v-text-field
                   v-model="password"
