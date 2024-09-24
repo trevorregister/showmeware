@@ -2,12 +2,14 @@
   <p>Profile</p>
   {{ profile }}
   <v-btn @click="signOut">Logout</v-btn>
+  <Body/>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { client }  from '@/application/client'
+import Body from '../components/Body.vue'
 
 const profile = ref({})
 const router = useRouter()
