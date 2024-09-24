@@ -13,10 +13,12 @@
     "@tiptap/pm": "^2.7.2",
     "@tiptap/starter-kit": "^2.7.2",
     "@tiptap/vue-3": "^2.7.2",
+    "@vueuse/core": "^11.1.0",
     "core-js": "^3.37.1",
     "dotenv": "^16.4.5",
     "roboto-fontface": "*",
     "vue": "^3.4.31",
+    "vue-konva": "^3.1.2",
     "vuetify": "^3.6.11"
   },
   "devDependencies": {
