@@ -2,11 +2,11 @@
   <v-container align="top" justify="center">
     <v-stage
       :config="stageSize"
-      @click="addEvent"
+      @click="addJournal"
     >
       <v-layer>
         <v-image :config="{image: image}" />
-        <BodyEventDot
+        <BodyJournalDot
           v-for="circle in circles"
           :key="circle.id"
           :config="circle"
@@ -18,7 +18,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-import BodyEventDot from './BodyEventDot.vue';
+import BodyJournalDot from './BodyJournalDot.vue';
 
 const props = defineProps({
   imgSrc: {
@@ -26,7 +26,7 @@ const props = defineProps({
     required: true
   }
 })
-const emits = defineEmits(['addEvent'])
+const emits = defineEmits(['addJournal'])
 
 const stageWidth = ref(400)
 const stageHeight = ref(600)
@@ -38,11 +38,11 @@ const stageSize = computed(() => ({
   height: stageHeight.value
 }))
 
-const addEvent = (e) => {
+const addJournal = (e) => {
   const stage = e.target.getStage()
   const pointerPosition = stage.getPointerPosition()
 
-  const newBodyEventDot = {
+  const newBodyJournalDot = {
     id: Date.now().toString(),
     x: pointerPosition.x,
     y: pointerPosition.y,
@@ -51,9 +51,8 @@ const addEvent = (e) => {
     stroke: 'black',
     strokeWidth: 2
   }
-  
-  circles.value.push(newBodyEventDot)
-  emits('addEvent', newBodyEventDot.id)
+  circles.value.push(newBodyJournalDot)
+  emits('addJournal', newBodyJournalDot)
 }
 
 const setImage = () => {
