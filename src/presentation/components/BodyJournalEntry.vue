@@ -15,7 +15,7 @@
                     </v-card-actions>
                 </v-card>
                 <v-card class="bg-white" v-else>
-                    <EventDisplay
+                    <EntryDisplay
                         :content="savedContent"
                         @toggleShowEditor="toggleShowEditor"
                     />
@@ -27,7 +27,7 @@
 <script setup>
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
-import EventDisplay from './EventDisplay.vue'
+import EntryDisplay from './EntryDisplay.vue'
 import ConfirmButton from './ConfirmButton.vue'
 import CancelButton from './CancelButton.vue'
 
