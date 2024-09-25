@@ -5,15 +5,7 @@
         <Body :imgSrc="'/body-front.svg'" @addJournal="addJournal"/>
       </v-col>
       <v-col>
-        <v-row v-for="entry in entries" :key="entry.id">
-          <BodyJournalEntry @deleteEntry="handleDeleteEntry"/>
-        </v-row>
-        <v-row justify="center">
-          <ConfirmButton
-            :label="'Add Entry'"
-            @click="addEntry"
-          />
-        </v-row>
+        <BodyJournal :entries="entries" @deleteEntry="handleDeleteEntry"/>
       </v-col>
     </v-row>
   </v-container>
@@ -21,8 +13,7 @@
 
 <script setup>
 import Body from '../components/Body.vue'
-import BodyJournalEntry from '../components/BodyJournalEntry.vue'
-import ConfirmButton from '../components/ConfirmButton.vue'
+import BodyJournal from '../components/BodyJournal.vue'
 
 const entries = ref([])
 
