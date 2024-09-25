@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col class="bg-white">
-        <Body :imgSrc="'/body-front.svg'"/>
+        <Body :imgSrc="'/body-front.svg'" @addEvent="addEntry(id)"/>
       </v-col>
       <v-col>
         <v-row>
@@ -20,8 +20,6 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
-import { client }  from '@/application/client'
 import Body from '../components/Body.vue'
 import BodyEvent from '../components/BodyEvent.vue'
 import ConfirmButton from '../components/ConfirmButton.vue'
@@ -32,8 +30,9 @@ const handleDeleteEntry = () => {
   entries.value.pop()
 }
 
-const addEntry = () => {
-  entries.value.push({a: 234})
+const addEntry = (id) => {
+  entries.value.push({id: 234})
+  console.log(entries.value)
 }
 
 </script>

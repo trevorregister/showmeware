@@ -1,5 +1,5 @@
 <template>
-    <v-card class="bg-white">
+    <v-card class="event-display bg-white">
         <QuillEditor
             :content="props.content"
             :options="displayOptions"

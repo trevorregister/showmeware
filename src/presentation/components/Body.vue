@@ -2,7 +2,7 @@
   <v-container align="top" justify="center">
     <v-stage
       :config="stageSize"
-      @click="handleStageClick"
+      @click="addEvent"
     >
       <v-layer>
         <v-image :config="{image: image}" />
@@ -26,6 +26,7 @@ const props = defineProps({
     required: true
   }
 })
+const emits = defineEmits(['addEvent'])
 
 const stageWidth = ref(400)
 const stageHeight = ref(600)
@@ -37,11 +38,11 @@ const stageSize = computed(() => ({
   height: stageHeight.value
 }))
 
-const handleStageClick = (e) => {
+const addEvent = (e) => {
   const stage = e.target.getStage()
   const pointerPosition = stage.getPointerPosition()
-  
-  circles.value.push({
+
+  const newBodyEventDot = {
     id: Date.now().toString(),
     x: pointerPosition.x,
     y: pointerPosition.y,
@@ -49,7 +50,10 @@ const handleStageClick = (e) => {
     fill: 'green',
     stroke: 'black',
     strokeWidth: 2
-  })
+  }
+  
+  circles.value.push(newBodyEventDot)
+  emits('addEvent', newBodyEventDot.id)
 }
 
 const setImage = () => {
