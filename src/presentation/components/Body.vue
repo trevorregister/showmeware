@@ -1,23 +1,25 @@
 <template>
-  <div class="image-clicker">
+  <v-container align="top" justify="center">
     <v-stage
       :config="stageSize"
       @click="handleStageClick"
     >
       <v-layer>
         <v-image :config="{image: image}" />
-        <v-circle
+        <BodyEventDot
           v-for="circle in circles"
           :key="circle.id"
           :config="circle"
         />
       </v-layer>
     </v-stage>
-  </div>
+  </v-container>
 </template>
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import BodyEventDot from './BodyEventDot.vue';
+
 const props = defineProps({
   imgSrc: {
     type: String,
@@ -44,7 +46,7 @@ const handleStageClick = (e) => {
     x: pointerPosition.x,
     y: pointerPosition.y,
     radius: 10,
-    fill: 'red',
+    fill: 'green',
     stroke: 'black',
     strokeWidth: 2
   })

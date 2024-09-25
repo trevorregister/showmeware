@@ -8,7 +8,14 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Body: typeof import('./src/presentation/components/Body.vue')['default']
+    BodyEvent: typeof import('./src/presentation/components/BodyEvent.vue')['default']
+    BodyEventDot: typeof import('./src/presentation/components/BodyEventDot.vue')['default']
+    CancelButton: typeof import('./src/presentation/components/CancelButton.vue')['default']
+    CanelButton: typeof import('./src/presentation/components/CanelButton.vue')['default']
+    ConfirmButton: typeof import('./src/presentation/components/ConfirmButton.vue')['default']
+    EventDisplay: typeof import('./src/presentation/components/EventDisplay.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TextEditor: typeof import('./src/presentation/components/TextEditor.vue')['default']
   }
 }
