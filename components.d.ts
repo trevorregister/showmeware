@@ -8,8 +8,9 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Body: typeof import('./src/presentation/components/Body.vue')['default']
-    BodyEvent: typeof import('./src/presentation/components/BodyEvent.vue')['default']
-    BodyEventDot: typeof import('./src/presentation/components/BodyEventDot.vue')['default']
+    BodyJournal: typeof import('./src/presentation/components/BodyJournal.vue')['default']
+    BodyJournalDot: typeof import('./src/presentation/components/BodyJournalDot.vue')['default']
+    BodyJournalEntry: typeof import('./src/presentation/components/BodyJournalEntry.vue')['default']
     CancelButton: typeof import('./src/presentation/components/CancelButton.vue')['default']
     CanelButton: typeof import('./src/presentation/components/CanelButton.vue')['default']
     ConfirmButton: typeof import('./src/presentation/components/ConfirmButton.vue')['default']
