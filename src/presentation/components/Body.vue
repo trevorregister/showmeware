@@ -1,50 +1,100 @@
 <template>
-    <v-btn @click=clearDots>Clear Dots</v-btn>
-    <v-container class="image-container" @click="handleClick">
-    <v-img src="../assets/body.svg" class="background-image"/>
-    <div
-        v-for="(dot, index) in dots"
-        :key="index"
-        class="dot"
-        :style="{ top: `${dot.y}px`, left: `${dot.x}px` }"
-    ></div>
-    </v-container>
+  <v-container align="top" justify="center">
+    <v-stage
+      :config="stageSize"
+      @click="addEvent"
+    >
+      <v-layer>
+        <v-image :config="{image: image}" />
+        <BodyEventDot
+          v-for="circle in circles"
+          :key="circle.id"
+          :config="circle"
+        />
+      </v-layer>
+    </v-stage>
+  </v-container>
 </template>
 
 <script setup>
-const dots = ref([])
+import { ref, onMounted, computed } from 'vue'
+import BodyEventDot from './BodyEventDot.vue';
 
-function handleClick(event) {
-      const rect = event.currentTarget.getBoundingClientRect()
-      const x = event.clientX - rect.left
-      const y = event.clientY - rect.top
+const props = defineProps({
+  imgSrc: {
+    type: String,
+    required: true
+  }
+})
+const emits = defineEmits(['addEvent'])
 
-      dots.value.push({ x, y })
+const stageWidth = ref(400)
+const stageHeight = ref(600)
+const circles = ref([])
+const image = ref(null)
 
+const stageSize = computed(() => ({
+  width: stageWidth.value,
+  height: stageHeight.value
+}))
+
+const addEvent = (e) => {
+  const stage = e.target.getStage()
+  const pointerPosition = stage.getPointerPosition()
+
+  const newBodyEventDot = {
+    id: Date.now().toString(),
+    x: pointerPosition.x,
+    y: pointerPosition.y,
+    radius: 10,
+    fill: 'green',
+    stroke: 'black',
+    strokeWidth: 2
+  }
+  
+  circles.value.push(newBodyEventDot)
+  emits('addEvent', newBodyEventDot.id)
+}
+
+const setImage = () => {
+  const img = new window.Image()
+  img.width = stageSize.value.width
+  img.height = stageSize.value.height
+  img.src = props.imgSrc
+
+  img.onload = () =>{
+    image.value = img
+  }
+}
+
+onMounted(() => {
+  const updateStageDimensions = () => {
+    const container = document.querySelector('.image-clicker')
+    if (container) {
+      stageWidth.value = container.clientWidth
+      stageHeight.value = container.clientWidth * (3/4) // Maintain 4:3 aspect ratio
     }
-function clearDots(){
-    dots.value = []
-}
-</script>
-<style scoped>
-.image-container {
-  position: relative;
-  width: 100%;
-  height: 500px;
-  background-color: #f0f0f0;
-}
+  }
 
-.background-image {
+  setImage()
+
+  updateStageDimensions()
+  
+  window.addEventListener('resize', updateStageDimensions)
+
+  return () => {
+    window.removeEventListener('resize', updateStageDimensions)
+  }
+
+  
+  
+})
+</script>
+
+<style scoped>
+.image-clicker {
   width: 100%;
-  height: 100%;
-  object-fit: scale-down;
-}
-.dot {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: red;
-  border-radius: 50%;
-  pointer-events: none; /* Ensure dot doesn't block clicks */
+  max-width: 800px;
+  margin: 0 auto;
 }
 </style>
