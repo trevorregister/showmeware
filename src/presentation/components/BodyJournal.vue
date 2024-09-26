@@ -1,8 +1,8 @@
 <template>
-    <v-row v-for="entry in entries" :key="entry.id">
-        <BodyJournalEntry @deleteEntry="handleDeleteEntry"/>
+    <v-row v-for="entry in journal?.entries ?? []" :key="journal.id">
+        <BodyJournalEntry/>
     </v-row>
-    <v-row justify="center" v-if="entries.length > 0">
+    <v-row justify="center" v-if="journal?.entries.length > 0">
           <ConfirmButton
             label="Add Entry"
             @click="addEntry"
@@ -14,13 +14,9 @@ import BodyJournalEntry from './BodyJournalEntry.vue'
 
 const emits = defineEmits(['deleteEntry'])
 const props = defineProps({
-    entries: {
-        type: Array,
+    journal: {
+        type: Object,
         required: true
     }
 })
-
-const handleDeleteEntry = () =>{
-    emits('deleteEntry')
-}
 </script>

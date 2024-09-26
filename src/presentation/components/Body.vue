@@ -42,17 +42,22 @@ const addJournal = (e) => {
   const stage = e.target.getStage()
   const pointerPosition = stage.getPointerPosition()
 
-  const newBodyJournalDot = {
+  const newJournal = {
     id: Date.now().toString(),
     x: pointerPosition.x,
     y: pointerPosition.y,
     radius: 10,
     fill: 'green',
     stroke: 'black',
-    strokeWidth: 2
+    strokeWidth: 2,
+    show: true,
+    entries: [{
+      id: Date.now().toString(),
+      content: {ops: []}
+    }]
   }
-  circles.value.push(newBodyJournalDot)
-  emits('addJournal', newBodyJournalDot)
+  circles.value.push(newJournal)
+  emits('addJournal', newJournal)
 }
 
 const setImage = () => {

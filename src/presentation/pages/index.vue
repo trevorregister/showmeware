@@ -5,7 +5,7 @@
         <Body :imgSrc="'/body-front.svg'" @addJournal="addJournal"/>
       </v-col>
       <v-col>
-        <BodyJournal :entries="entries" @deleteEntry="handleDeleteEntry"/>
+        <BodyJournal :journal="selectedJournal"/>
       </v-col>
     </v-row>
   </v-container>
@@ -15,14 +15,18 @@
 import Body from '../components/Body.vue'
 import BodyJournal from '../components/BodyJournal.vue'
 
-const entries = ref([])
+const journals = ref([])
 
-const handleDeleteEntry = () => {
-  entries.value = entries.value.filter(BodyJournalDot => BodyJournalDot.id !== 1)
+const addJournal = (newJournal) => {
+  journals.value.forEach(journal => journal.show = false)
+  journals.value.push(newJournal)
 }
 
-const addJournal = (BodyJournalDot) => {
-  entries.value.push(BodyJournalDot)
-}
+const selectedJournal = computed(() => {
+  console.log(selectedJournal.value)
+  console.log('journals', journals.value)
+  return journals.value.filter(journal => journal.show === true)[0] ?? []
+  }
+)
 
 </script>
