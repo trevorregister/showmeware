@@ -2,10 +2,14 @@
   <v-container>
     <v-row>
       <v-col class="bg-white">
-        <Body :imgSrc="'/body-front.svg'" @addJournal="addJournal"/>
+        <Body 
+          :imgSrc="'/body-front.svg'" 
+          @addJournal="addJournal" />
       </v-col>
       <v-col>
-        <BodyJournal :journal="selectedJournal"/>
+        <BodyJournal 
+          :journal="selectedJournal"    
+          @addEntry="addEntry"/>
       </v-col>
     </v-row>
   </v-container>
@@ -22,9 +26,18 @@ const addJournal = (newJournal) => {
   journals.value.push(newJournal)
 }
 
+const addEntry = (journalId) => {
+  journals.value.forEach(journal => {
+    if(journalId === journal.id){
+      journal.entries.push({
+      id: Date.now().toString().concat(Math.random().toString(20).substring(2,10)),
+      content: {ops: []}
+      })
+    }
+  })
+}
+
 const selectedJournal = computed(() => {
-  console.log(selectedJournal.value)
-  console.log('journals', journals.value)
   return journals.value.filter(journal => journal.show === true)[0] ?? []
   }
 )

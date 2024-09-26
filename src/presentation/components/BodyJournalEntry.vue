@@ -35,6 +35,16 @@ const editorContent = ref('')
 const savedContent = ref('')
 const showEditor = ref(true)
 
+const props = defineProps({
+    journalId: {
+        type: String,
+        required: true
+    },
+    entryId: {
+        type: String,
+        required: true
+    }
+})
 const emits = defineEmits(['deleteEntry'])
 
 const saveContent = () =>{
@@ -43,7 +53,7 @@ const saveContent = () =>{
 }
 
 const deleteEntry = () => {
-    emits('deleteEntry')
+    emits('deleteEntry', props.entryId)
 }
 
 

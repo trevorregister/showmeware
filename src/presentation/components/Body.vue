@@ -43,7 +43,7 @@ const addJournal = (e) => {
   const pointerPosition = stage.getPointerPosition()
 
   const newJournal = {
-    id: Date.now().toString(),
+    id: Date.now().toString().concat(Math.random().toString(20).substring(2,10)),
     x: pointerPosition.x,
     y: pointerPosition.y,
     radius: 10,
@@ -52,7 +52,7 @@ const addJournal = (e) => {
     strokeWidth: 2,
     show: true,
     entries: [{
-      id: Date.now().toString(),
+      id: Date.now().toString().concat(Math.random().toString(20).substring(2,10)),
       content: {ops: []}
     }]
   }
