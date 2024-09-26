@@ -18,6 +18,7 @@
 <script setup>
 import Body from '../components/Body.vue'
 import BodyJournal from '../components/BodyJournal.vue'
+import { generateId } from '@/utils'
 
 const journals = ref([])
 
@@ -30,7 +31,7 @@ const addEntry = (journalId) => {
   journals.value.forEach(journal => {
     if(journalId === journal.id){
       journal.entries.push({
-      id: Date.now().toString().concat(Math.random().toString(20).substring(2,10)),
+      id: generateId(),
       content: {ops: []}
       })
     }

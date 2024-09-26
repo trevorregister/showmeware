@@ -18,7 +18,8 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-import BodyJournalDot from './BodyJournalDot.vue';
+import BodyJournalDot from './BodyJournalDot.vue'
+import { generateId } from '@/utils'
 
 const props = defineProps({
   imgSrc: {
@@ -43,7 +44,7 @@ const addJournal = (e) => {
   const pointerPosition = stage.getPointerPosition()
 
   const newJournal = {
-    id: Date.now().toString().concat(Math.random().toString(20).substring(2,10)),
+    id: generateId(),
     x: pointerPosition.x,
     y: pointerPosition.y,
     radius: 10,
@@ -52,7 +53,7 @@ const addJournal = (e) => {
     strokeWidth: 2,
     show: true,
     entries: [{
-      id: Date.now().toString().concat(Math.random().toString(20).substring(2,10)),
+      id: generateId(),
       content: {ops: []}
     }]
   }
