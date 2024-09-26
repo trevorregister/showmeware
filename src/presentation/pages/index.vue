@@ -4,12 +4,12 @@
       <v-col class="bg-white">
         <Body 
           :imgSrc="'/body-front.svg'" 
-          @addJournal="addJournal" />
+          @addJournal="handleAddJournal" />
       </v-col>
       <v-col>
         <BodyJournal 
           :journal="selectedJournal"    
-          @addEntry="addEntry"/>
+          @addEntry="handleAddEntry"/>
       </v-col>
     </v-row>
   </v-container>
@@ -22,12 +22,12 @@ import { generateId } from '@/utils'
 
 const journals = ref([])
 
-const addJournal = (newJournal) => {
+const handleAddJournal = (newJournal) => {
   journals.value.forEach(journal => journal.show = false)
   journals.value.push(newJournal)
 }
 
-const addEntry = (journalId) => {
+const handleAddEntry = (journalId) => {
   journals.value.forEach(journal => {
     if(journalId === journal.id){
       journal.entries.push({
