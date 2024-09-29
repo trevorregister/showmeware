@@ -30,30 +30,25 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import EntryDisplay from './EntryDisplay.vue'
 import ConfirmButton from './ConfirmButton.vue'
 import CancelButton from './CancelButton.vue'
+import { useJournalStore } from '@/presentation/stores/journal'
 
 const editorContent = ref('')
 const savedContent = ref('')
 const showEditor = ref(true)
+const journalStore = useJournalStore()
 
-const props = defineProps({
-    journalId: {
-        type: String,
-        required: true
-    },
-    entryId: {
-        type: String,
-        required: true
-    }
-})
-const emits = defineEmits(['deleteEntry'])
+const journal = computed(() => journalStore.selectedJournal)
+const entry = computed(() => journalStore.selectedEntry)
 
 const saveContent = () =>{
-    savedContent.value = editorContent.value
+    journalStore.editEntry(journal.id, entry.id, savedContent.value)
     toggleShowEditor()
 }
 
 const deleteEntry = () => {
-    emits('deleteEntry', props.entryId)
+    console.log(journal.id, entry.id)
+    journalStore.setSelectedEntry(journal.id, entry.id)
+    journalStore.deleteEntry(journal.id, entry.id)
 }
 
 
@@ -77,6 +72,7 @@ const style = {
 const toggleShowEditor = () => {
     showEditor.value = !showEditor.value
 }
+
 </script>
   
 <style scoped>

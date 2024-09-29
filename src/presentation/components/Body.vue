@@ -29,7 +29,6 @@ const props = defineProps({
   }
 })
 const journalStore = useJournalStore()
-const emits = defineEmits(['createJournal'])
 const journals = ref([])
 
 const stageWidth = ref(400)
@@ -47,6 +46,7 @@ const handleStageClick = (e) => {
   const pointerPosition = stage.getPointerPosition()
 
   if(clickedExistingJournal(pointerPosition)){
+    console.log(journalStore.selectedJournal)
     return
   }
   else{
@@ -67,7 +67,6 @@ const handleStageClick = (e) => {
     }
     journalStore.addJournal(newJournal)
     journalStore.setSelectedJournal(newJournal.id)
-    emits('createJournal', newJournal)
   }
 }
 

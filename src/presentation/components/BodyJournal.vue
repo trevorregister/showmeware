@@ -3,7 +3,6 @@
         <BodyJournalEntry 
             :journalId="journal.id"
             :entryId="entry.id"
-            @deleteEntry="handleDeleteEntry"
         />
     </v-row>
     <v-row justify="center" v-if="journal?.entries.length > 0">
@@ -15,24 +14,17 @@
 </template>
 <script setup>
 import BodyJournalEntry from './BodyJournalEntry.vue'
+import { useJournalStore } from '@/presentation/stores/journal'
+import { generateId } from '@/utils'
+const journalStore = useJournalStore()
+const journal = computed(() => journalStore.selectedJournal)
 
-const emits = defineEmits(['deleteEntry', 'addEntry', 'deleteJournal'])
-const props = defineProps({
-    journal: {
-        type: Object,
-        required: true
-    }
-})
 
 const addEntry = () => {
-    emits('addEntry', props.journal.id)
-}
-
-const handleDeleteEntry = (entryId) => {
-    props.journal.entries = props.journal.entries.filter(entry => entry.id !== entryId)
-    if(props.journal.entries.length === 0){
-        emits('deleteJournal', props.journal.id)
-    }
+    journalStore.addEntry(journal.value.id, {
+        id: generateId(),
+        content: {ops: []}
+    })
 }
 
 </script>
