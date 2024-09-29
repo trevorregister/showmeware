@@ -2,15 +2,12 @@
   <v-container>
     <v-row>
       <v-col class="bg-white">
-        <Body 
-          :imgSrc="'/body-front.svg'" 
-          @addJournal="handleAddJournal" />
+        <Body :imgSrc="'/body-front.svg'" />
       </v-col>
       <v-col>
         <BodyJournal 
           :journal="selectedJournal"    
           @addEntry="handleAddEntry"
-          @deleteJournal="handleDeleteJournal"
           />
       </v-col>
     </v-row>
@@ -27,11 +24,6 @@ const journalStore = useJournalStore()
 const journals = ref([])
 const selectedJournal = ref(null)
 
-const handleAddJournal = (newJournal) => {
-  journals.value.forEach(journal => journal.show = false)
-  journals.value.push(newJournal)
-}
-
 const handleAddEntry = (journalId) => {
   journals.value.forEach(journal => {
     if(journalId === journal.id){
@@ -41,10 +33,6 @@ const handleAddEntry = (journalId) => {
       })
     }
   })
-}
-
-const handleDeleteJournal = (journalId) => {
-  journals.value = journals.value.filter(journal => journal.id !== journalId)
 }
 
 onMounted(() => {
