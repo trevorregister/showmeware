@@ -47,6 +47,7 @@ const handleStageClick = (e) => {
   const pointerPosition = stage.getPointerPosition()
 
   if(clickedExistingJournal(pointerPosition)){
+    console.log(journalStore.selectedJournal)
     return
   }
   else{
@@ -67,6 +68,7 @@ const handleStageClick = (e) => {
     }
     journalStore.addJournal(newJournal)
     emits('createJournal', newJournal)
+    console.log(journalStore.journals)
   }
 }
 
@@ -82,11 +84,15 @@ const setImage = () => {
 }
 
 const clickedExistingJournal = ({x, y}) => {
-  return journals.value.some(journal => {
+   return journals.value.some(journal => {
     const dx = x - journal.circle.x
     const dy = y - journal.circle.y
     const distance = Math.sqrt(dx * dx + dy * dy) 
-    return distance < journal.circle.radius + CLICK_AREA_TOLERANCE
+    if(distance < journal.circle.radius + CLICK_AREA_TOLERANCE){
+      journalStore.setSelectedJournal(journal.id)
+      return true
+    }
+    return false
   })
 }
 

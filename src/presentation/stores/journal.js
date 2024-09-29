@@ -3,9 +3,14 @@ import { ref } from 'vue'
 
 export const useJournalStore = defineStore('journalStore', () => {
   const journals = ref([])
+  const selectedJournal = ref(null)
 
   const addJournal = (journal) => {
     journals.value.push(journal)
+  }
+
+  const setSelectedJournal = (journalId) => {
+    selectedJournal.value = journals.value.find(j => j.id === journalId)
   }
 
   const addEntry = (journalId, entry) => {
@@ -54,6 +59,7 @@ export const useJournalStore = defineStore('journalStore', () => {
 
   return {
     journals,
+    selectedJournal,
     addJournal,
     addEntry,
     editJournal,
@@ -62,5 +68,6 @@ export const useJournalStore = defineStore('journalStore', () => {
     deleteEntry,
     getJournalById,
     getEntriesByJournalId,
+    setSelectedJournal
   }
 })
