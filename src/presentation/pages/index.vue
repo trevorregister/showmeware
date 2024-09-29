@@ -9,7 +9,9 @@
       <v-col>
         <BodyJournal 
           :journal="selectedJournal"    
-          @addEntry="handleAddEntry"/>
+          @addEntry="handleAddEntry"
+          @deleteJournal="handleDeleteJournal"
+          />
       </v-col>
     </v-row>
   </v-container>
@@ -19,7 +21,9 @@
 import Body from '../components/Body.vue'
 import BodyJournal from '../components/BodyJournal.vue'
 import { generateId } from '@/utils'
+import { useJournalStore } from '@/presentation/stores/journal'
 
+const journalStore = useJournalStore()
 const journals = ref([])
 
 const handleAddJournal = (newJournal) => {
@@ -38,9 +42,17 @@ const handleAddEntry = (journalId) => {
   })
 }
 
+const handleDeleteJournal = (journalId) => {
+  journals.value = journals.value.filter(journal => journal.id !== journalId)
+}
+
 const selectedJournal = computed(() => {
   return journals.value.filter(journal => journal.show === true)[0] ?? []
   }
 )
+
+onMounted(() => {
+  journals.value = journalStore.journals
+})
 
 </script>

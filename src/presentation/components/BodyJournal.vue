@@ -16,7 +16,7 @@
 <script setup>
 import BodyJournalEntry from './BodyJournalEntry.vue'
 
-const emits = defineEmits(['deleteEntry', 'addEntry'])
+const emits = defineEmits(['deleteEntry', 'addEntry', 'deleteJournal'])
 const props = defineProps({
     journal: {
         type: Object,
@@ -29,10 +29,10 @@ const addEntry = () => {
 }
 
 const handleDeleteEntry = (entryId) => {
-    console.log('delete this', entryId)
-    props.journal.entries.forEach(entry => console.log('before', entry.id))
     props.journal.entries = props.journal.entries.filter(entry => entry.id !== entryId)
-    props.journal.entries.forEach(entry => console.log('after', entry.id))
+    if(props.journal.entries.length === 0){
+        emits('deleteJournal', props.journal.id)
+    }
 }
 
 </script>

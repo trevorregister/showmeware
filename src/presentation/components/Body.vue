@@ -2,7 +2,7 @@
   <v-container align="top" justify="center">
     <v-stage
       :config="stageSize"
-      @click="addJournal"
+      @click="createJournal"
     >
       <v-layer>
         <v-image :config="{image: image}" />
@@ -20,6 +20,7 @@
 import { ref, onMounted, computed } from 'vue'
 import BodyJournalDot from './BodyJournalDot.vue'
 import { generateId } from '@/utils'
+import { useJournalStore } from '@/presentation/stores/journal'
 
 const props = defineProps({
   imgSrc: {
@@ -27,7 +28,8 @@ const props = defineProps({
     required: true
   }
 })
-const emits = defineEmits(['addJournal'])
+const journalStore = useJournalStore()
+const emits = defineEmits(['createJournal'])
 
 const stageWidth = ref(400)
 const stageHeight = ref(600)
@@ -39,7 +41,7 @@ const stageSize = computed(() => ({
   height: stageHeight.value
 }))
 
-const addJournal = (e) => {
+const createJournal = (e) => {
   const stage = e.target.getStage()
   const pointerPosition = stage.getPointerPosition()
 
@@ -52,13 +54,20 @@ const addJournal = (e) => {
     stroke: 'black',
     strokeWidth: 2,
     show: true,
+    dotArea: {
+      //something like this
+/*       x: pointerPosition.x,
+      y: pointerPosition.y,
+      radius: 10, */
+    },
     entries: [{
       id: generateId(),
       content: {ops: []}
     }]
   }
+  journalStore.addJournal(newJournal)
   circles.value.push(newJournal)
-  emits('addJournal', newJournal)
+  emits('createJournal', newJournal)
 }
 
 const setImage = () => {
