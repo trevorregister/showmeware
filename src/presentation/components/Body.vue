@@ -21,6 +21,7 @@ import { ref, onMounted, computed } from 'vue'
 import BodyJournalDot from './BodyJournalDot.vue'
 import { generateId } from '@/utils'
 import { useJournalStore } from '@/presentation/stores/journal'
+import Delta from 'quill-delta'
 
 const props = defineProps({
   imgSrc: {
@@ -62,7 +63,7 @@ const handleStageClick = (e) => {
     },
     entries: [{
       id: generateId(),
-      content: {ops: []}
+      content: new Delta()
       }]
     }
     journalStore.addJournal(newJournal)

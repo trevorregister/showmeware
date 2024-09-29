@@ -9,17 +9,24 @@
                         theme="snow"
                         :style="style"
                     />
+                    <v-card-text>
+                        {{ editorContent }}
+                        <br>
+                         {{ props.journalId }} 
+                         <br>
+                         {{ props.entry.id }} 
+                    </v-card-text>
                     <v-card-actions>
                         <confirm-button @click="saveContent" label="Save"/>
                         <cancel-button @click="deleteEntry" label='Delete'/>
                     </v-card-actions>
                 </v-card>
-                <v-card class="bg-white" v-else>
+<!--                 <v-card class="bg-white" v-else>
                     <EntryDisplay
                         :content="savedContent"
                         @toggleShowEditor="toggleShowEditor"
                     />
-                </v-card>
+                </v-card> -->
             </v-col>
         </v-row>
     </v-container>
@@ -37,18 +44,28 @@ const savedContent = ref('')
 const showEditor = ref(true)
 const journalStore = useJournalStore()
 
-const journal = computed(() => journalStore.selectedJournal)
-const entry = computed(() => journalStore.selectedEntry)
+const props = defineProps({
+    journalId: {
+        type: String,
+        required: true
+    },
+    entry: {
+        type: Object,
+        required: true
+    }
+})
 
 const saveContent = () =>{
-    journalStore.editEntry(journal.id, entry.id, savedContent.value)
-    toggleShowEditor()
+    console.log('saveContent', editorContent.value)
+    journalStore.editEntry({
+        journalId: props.journalId, 
+        entryId: props.entry.id, 
+        updatedEntry: editorContent.value
+    })
 }
 
 const deleteEntry = () => {
-    console.log(journal.id, entry.id)
-    journalStore.setSelectedEntry(journal.id, entry.id)
-    journalStore.deleteEntry(journal.id, entry.id)
+    journalStore.deleteEntry(props.journalId, props.entryId)
 }
 
 
@@ -72,6 +89,10 @@ const style = {
 const toggleShowEditor = () => {
     showEditor.value = !showEditor.value
 }
+
+onMounted(() => {
+    editorContent.value = props.entry.content
+})
 
 </script>
   

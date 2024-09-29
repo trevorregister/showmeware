@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col class="bg-white">
-        <Body :imgSrc="'/body-front.svg'" />
+        <Body :imgSrc="'/woman.jpg'" />
       </v-col>
       <v-col>
         <BodyJournal/>

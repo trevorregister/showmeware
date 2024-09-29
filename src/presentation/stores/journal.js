@@ -32,7 +32,7 @@ export const useJournalStore = defineStore('journalStore', () => {
     }
   }
 
-  const editEntry = (journalId, entryId, updatedEntry) => {
+  const editEntry = ({journalId, entryId, updatedEntry}) => {
     const journal = journals.value.find(j => j.id === journalId)
     if (journal) {
       const entryIndex = journal.entries.findIndex(e => e.id === entryId)
