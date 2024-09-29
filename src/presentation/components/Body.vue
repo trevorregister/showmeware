@@ -2,14 +2,14 @@
   <v-container align="top" justify="center">
     <v-stage
       :config="stageSize"
-      @click="createJournal"
+      @click="handleStageClick"
     >
       <v-layer>
         <v-image :config="{image: image}" />
         <BodyJournalDot
-          v-for="circle in circles"
-          :key="circle.id"
-          :config="circle"
+          v-for="journal in journals"
+          :key="journal.id"
+          :config="journal.circle"
         />
       </v-layer>
     </v-stage>
@@ -30,44 +30,44 @@ const props = defineProps({
 })
 const journalStore = useJournalStore()
 const emits = defineEmits(['createJournal'])
+const journals = ref([])
 
 const stageWidth = ref(400)
 const stageHeight = ref(600)
-const circles = ref([])
 const image = ref(null)
+const CLICK_AREA_TOLERANCE = 7
 
 const stageSize = computed(() => ({
   width: stageWidth.value,
   height: stageHeight.value
 }))
 
-const createJournal = (e) => {
+const handleStageClick = (e) => {
   const stage = e.target.getStage()
   const pointerPosition = stage.getPointerPosition()
 
-  const newJournal = {
+  if(clickedExistingJournal(pointerPosition)){
+    return
+  }
+  else{
+    const newJournal = {
     id: generateId(),
-    x: pointerPosition.x,
-    y: pointerPosition.y,
-    radius: 10,
-    fill: 'green',
-    stroke: 'black',
-    strokeWidth: 2,
-    show: true,
-    dotArea: {
-      //something like this
-/*       x: pointerPosition.x,
+    circle: {
+      x: pointerPosition.x,
       y: pointerPosition.y,
-      radius: 10, */
+      radius: 10,
+      fill: 'green',
+      stroke: 'black',
+      strokeWidth: 2,
     },
     entries: [{
       id: generateId(),
       content: {ops: []}
-    }]
+      }]
+    }
+    journalStore.addJournal(newJournal)
+    emits('createJournal', newJournal)
   }
-  journalStore.addJournal(newJournal)
-  circles.value.push(newJournal)
-  emits('createJournal', newJournal)
 }
 
 const setImage = () => {
@@ -81,6 +81,15 @@ const setImage = () => {
   }
 }
 
+const clickedExistingJournal = ({x, y}) => {
+  return journals.value.some(journal => {
+    const dx = x - journal.circle.x
+    const dy = y - journal.circle.y
+    const distance = Math.sqrt(dx * dx + dy * dy) 
+    return distance < journal.circle.radius + CLICK_AREA_TOLERANCE
+  })
+}
+
 onMounted(() => {
   const updateStageDimensions = () => {
     const container = document.querySelector('.image-clicker')
@@ -90,16 +99,13 @@ onMounted(() => {
     }
   }
 
+  journals.value = journalStore.journals
   setImage()
-
   updateStageDimensions()
-  
   window.addEventListener('resize', updateStageDimensions)
-
   return () => {
     window.removeEventListener('resize', updateStageDimensions)
   }
-
   
   
 })
