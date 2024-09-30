@@ -29,7 +29,10 @@ const renderKey = ref(0)
 
 const handleDeleteJournal = () => {
   journals.value.forEach(journal => {
-    if (journal.id === journals.value[1].id) {
+    if(journals.value.length === 1){ //handles deleting the last journal
+      return
+    }
+    else if (journal.id === journals.value[1].id) {
       journal.circle.radius = 13
     } else {
       journal.circle.radius = 7
