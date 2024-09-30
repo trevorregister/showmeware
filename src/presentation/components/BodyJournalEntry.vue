@@ -2,7 +2,7 @@
     <v-container align="center" justify="center">
         <v-row>
             <v-col>
-                <v-card class="bg-white" v-if="showEditor">
+                <v-card class="bg-white" v-if="showEditor" elevation="5">
                     <QuillEditor
                         :content="props.entry.content"
                         :options="EDITOR_OPTIONS"
@@ -10,15 +10,6 @@
                         :style="EDITOR_STYLE"
                         @update:content="updateContent"
                     />
-                    <v-card-text>
-                       editorContent: {{ editorContent }}
-                        <br>
-                        entry.content: {{ props.entry.content }}
-                        <br>
-                         journalId: {{ props.journalId }} 
-                         <br>
-                         entry.id: {{ props.entry.id }} 
-                    </v-card-text>
                     <v-card-actions>
                         <confirm-button @click="saveContent" label="Save"/>
                         <cancel-button @click="deleteEntry" label='Delete'/>
@@ -80,7 +71,7 @@ const saveContent = () =>{
         entryId: props.entry.id, 
         updatedEntry: editorContent.value
     })
-    //showEditor.value = !showEditor.value
+    showEditor.value = !showEditor.value
 }
 
 const updateContent = (content) => {
