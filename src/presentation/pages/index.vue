@@ -28,8 +28,14 @@ const selectedJournal = ref(null)
 const renderKey = ref(0)
 
 const handleDeleteJournal = () => {
+  journals.value.forEach(journal => {
+    if (journal.id === journals.value[1].id) {
+      journal.circle.radius = 13
+    } else {
+      journal.circle.radius = 7
+    }
+  })
   renderKey.value++
-  //journalStore.setSelectedJournal(journals.value[0])
 }
 
 onMounted(() => {
