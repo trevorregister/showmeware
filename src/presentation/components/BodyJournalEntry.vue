@@ -4,29 +4,32 @@
             <v-col>
                 <v-card class="bg-white" v-if="showEditor">
                     <QuillEditor
-                        v-model:content="editorContent"
-                        :options="editorOptions"
+                        :content="props.entry.content"
+                        :options="EDITOR_OPTIONS"
                         theme="snow"
-                        :style="style"
+                        :style="EDITOR_STYLE"
+                        @update:content="updateContent"
                     />
                     <v-card-text>
-                        {{ editorContent }}
+                       editorContent: {{ editorContent }}
                         <br>
-                         {{ props.journalId }} 
+                        entry.content: {{ props.entry.content }}
+                        <br>
+                         journalId: {{ props.journalId }} 
                          <br>
-                         {{ props.entry.id }} 
+                         entry.id: {{ props.entry.id }} 
                     </v-card-text>
                     <v-card-actions>
                         <confirm-button @click="saveContent" label="Save"/>
                         <cancel-button @click="deleteEntry" label='Delete'/>
                     </v-card-actions>
                 </v-card>
-<!--                 <v-card class="bg-white" v-else>
+                <v-card class="bg-white" v-else>
                     <EntryDisplay
-                        :content="savedContent"
+                        :content="props.entry.content"
                         @toggleShowEditor="toggleShowEditor"
                     />
-                </v-card> -->
+                </v-card>
             </v-col>
         </v-row>
     </v-container>
@@ -40,7 +43,6 @@ import CancelButton from './CancelButton.vue'
 import { useJournalStore } from '@/presentation/stores/journal'
 
 const editorContent = ref('')
-const savedContent = ref('')
 const showEditor = ref(true)
 const journalStore = useJournalStore()
 
@@ -55,21 +57,7 @@ const props = defineProps({
     }
 })
 
-const saveContent = () =>{
-    console.log('saveContent', editorContent.value)
-    journalStore.editEntry({
-        journalId: props.journalId, 
-        entryId: props.entry.id, 
-        updatedEntry: editorContent.value
-    })
-}
-
-const deleteEntry = () => {
-    journalStore.deleteEntry(props.journalId, props.entryId)
-}
-
-
-const editorOptions = {
+const EDITOR_OPTIONS = {
     theme: 'snow',
     modules: {
         toolbar: [
@@ -78,12 +66,32 @@ const editorOptions = {
         ['link', 'image'],
         ['clean']
         ]
-},
-    placeholder: 'Compose an epic...',
+    },
+    placeholder: 'Start typing...',
 }
 
-const style = {
-    height: '220px'
+const EDITOR_STYLE = {
+    height: '120px'
+}
+
+const saveContent = () =>{
+    journalStore.editEntry({
+        journalId: props.journalId, 
+        entryId: props.entry.id, 
+        updatedEntry: editorContent.value
+    })
+    //showEditor.value = !showEditor.value
+}
+
+const updateContent = (content) => {
+    editorContent.value = content
+}
+
+const deleteEntry = () => {
+    journalStore.deleteEntry({
+        journalId: props.journalId, 
+        entryId: props.entry.id
+    })
 }
 
 const toggleShowEditor = () => {

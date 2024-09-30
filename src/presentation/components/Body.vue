@@ -47,7 +47,6 @@ const handleStageClick = (e) => {
   const pointerPosition = stage.getPointerPosition()
 
   if(clickedExistingJournal(pointerPosition)){
-    console.log(journalStore.selectedJournal)
     return
   }
   else{

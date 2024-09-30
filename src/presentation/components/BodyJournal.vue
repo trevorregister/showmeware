@@ -15,17 +15,12 @@
 <script setup>
 import BodyJournalEntry from './BodyJournalEntry.vue'
 import { useJournalStore } from '@/presentation/stores/journal'
-import { generateId } from '@/utils'
-import Delta from 'quill-delta'
 const journalStore = useJournalStore()
 const journal = computed(() => journalStore.selectedJournal)
 
 
 const addEntry = () => {
-    journalStore.addEntry(journal.value.id, {
-        id: generateId(),
-        content: new Delta()
-    })
+    journalStore.addEntry(journal.value.id)
 }
 
 </script>

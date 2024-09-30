@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import Delta from 'quill-delta'
+import { generateId } from '@/utils'
 
 export const useJournalStore = defineStore('journalStore', () => {
   const journals = ref([])
@@ -18,17 +20,14 @@ export const useJournalStore = defineStore('journalStore', () => {
     selectedEntry.value = selectedJournal.value.entries.find(e => e.id === entryId)
   }
 
-  const addEntry = (journalId, entry) => {
+  const addEntry = (journalId) => {
     const journal = journals.value.find(j => j.id === journalId)
+    const entry = {
+        id: generateId(),
+        content: new Delta()
+    }
     if (journal) {
       journal.entries.push(entry)
-    }
-  }
-
-  const editJournal = (journalId, updatedJournal) => {
-    const index = journals.value.findIndex(j => j.id === journalId)
-    if (index !== -1) {
-      journals.value[index] = updatedJournal
     }
   }
 
@@ -37,7 +36,7 @@ export const useJournalStore = defineStore('journalStore', () => {
     if (journal) {
       const entryIndex = journal.entries.findIndex(e => e.id === entryId)
       if (entryIndex !== -1) {
-        journal.entries[entryIndex] = updatedEntry
+        journal.entries[entryIndex].content = updatedEntry
       }
     }
   }
@@ -46,7 +45,7 @@ export const useJournalStore = defineStore('journalStore', () => {
     journals.value = journals.value.filter(j => j.id !== journalId)
   }
 
-  const deleteEntry = (journalId, entryId) => {
+  const deleteEntry = ({journalId, entryId}) => {
     const journal = journals.value.find(j => j.id === journalId)
     if (journal) {
       journal.entries = journal.entries.filter(e => e.id !== entryId)
@@ -67,7 +66,6 @@ export const useJournalStore = defineStore('journalStore', () => {
     selectedJournal,
     addJournal,
     addEntry,
-    editJournal,
     editEntry,
     deleteJournal,
     deleteEntry,
