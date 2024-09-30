@@ -5,7 +5,7 @@
             :entry="entry"
         />
     </v-row>
-    <v-row justify="center" v-if="journal?.entries.length > 0">
+    <v-row justify="center" v-if="journal?.entries">
           <ConfirmButton
             label="Add Entry"
             @click="addEntry"
