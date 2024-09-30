@@ -2,10 +2,16 @@
   <v-container>
     <v-row>
       <v-col class="bg-white">
-        <Body :imgSrc="'/woman.jpg'" />
+        <Body 
+          :imgSrc="'/woman.jpg'" 
+          :journals="journals" 
+          :key="renderKey"
+        />
       </v-col>
       <v-col>
-        <BodyJournal/>
+        <BodyJournal
+          @deleteJournal="handleDeleteJournal"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -19,6 +25,12 @@ import { useJournalStore } from '@/presentation/stores/journal'
 const journalStore = useJournalStore()
 const journals = ref([])
 const selectedJournal = ref(null)
+const renderKey = ref(0)
+
+const handleDeleteJournal = () => {
+  renderKey.value++
+  //journalStore.setSelectedJournal(journals.value[0])
+}
 
 onMounted(() => {
   journals.value = journalStore.journals

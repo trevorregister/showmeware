@@ -45,6 +45,7 @@ export const useJournalStore = defineStore('journalStore', () => {
 
   const deleteJournal = (journalId) => {
     journals.value = journals.value.filter(j => j.id !== journalId)
+    selectedJournal.value = journals.value[0]
   }
 
   const deleteEntry = ({journalId, entryId}) => {

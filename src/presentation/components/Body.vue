@@ -27,10 +27,14 @@ const props = defineProps({
   imgSrc: {
     type: String,
     required: true
+  },
+  journals: {
+    type: Array,
+    required: true
   }
 })
 const journalStore = useJournalStore()
-const journals = ref([])
+const journals = ref(props.journals)
 
 const stageWidth = ref(400)
 const stageHeight = ref(600)
