@@ -2,18 +2,14 @@
   <v-container>
     <v-row>
       <v-col class="bg-white">
-        <Body :imgSrc="'/body-front.svg'" @addJournal="addJournal"/>
+        <Body 
+          :imgSrc="'/woman.jpg'" 
+          :journals="journals" 
+          :key="renderKey"
+        />
       </v-col>
       <v-col>
-        <v-row v-for="entry in entries" :key="entry.id">
-          <BodyJournalEntry @deleteEntry="handleDeleteEntry"/>
-        </v-row>
-        <v-row justify="center">
-          <ConfirmButton
-            :label="'Add Entry'"
-            @click="addEntry"
-          />
-        </v-row>
+        <BodyJournal @deleteJournal="handleDeleteJournal"/>
       </v-col>
     </v-row>
   </v-container>
@@ -21,17 +17,21 @@
 
 <script setup>
 import Body from '../components/Body.vue'
-import BodyJournalEntry from '../components/BodyJournalEntry.vue'
-import ConfirmButton from '../components/ConfirmButton.vue'
+import BodyJournal from '../components/BodyJournal.vue'
+import { useJournalStore } from '@/presentation/stores/journal'
 
-const entries = ref([])
+const journalStore = useJournalStore()
+const journals = ref([])
+const selectedJournal = ref(null)
+const renderKey = ref(0)
 
-const handleDeleteEntry = () => {
-  entries.value = entries.value.filter(BodyJournalDot => BodyJournalDot.id !== 1)
+const handleDeleteJournal = () => {
+  renderKey.value++
 }
 
-const addJournal = (BodyJournalDot) => {
-  entries.value.push(BodyJournalDot)
-}
+onMounted(() => {
+  journals.value = journalStore.journals
+  selectedJournal.value = journalStore.selectedJournal
+})
 
 </script>
