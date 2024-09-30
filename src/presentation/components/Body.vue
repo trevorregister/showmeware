@@ -55,7 +55,7 @@ const handleStageClick = (e) => {
     circle: {
       x: pointerPosition.x,
       y: pointerPosition.y,
-      radius: 10,
+      radius: 7,
       fill: 'green',
       stroke: 'black',
       strokeWidth: 2,

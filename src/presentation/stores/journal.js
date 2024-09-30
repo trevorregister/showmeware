@@ -13,7 +13,9 @@ export const useJournalStore = defineStore('journalStore', () => {
   }
 
   const setSelectedJournal = (journalId) => {
+    journals.value.forEach(j => j.circle.radius = 7)
     selectedJournal.value = journals.value.find(j => j.id === journalId)
+    selectedJournal.value.circle.radius = 13
   }
 
   const setSelectedEntry = (entryId) => {
