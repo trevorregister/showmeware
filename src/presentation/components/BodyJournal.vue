@@ -2,37 +2,39 @@
     <v-row v-for="entry in journal?.entries ?? []">
         <BodyJournalEntry 
             :journalId="journal.id"
-            :entryId="entry.id"
-            @deleteEntry="handleDeleteEntry"
+            :entry="entry"
         />
     </v-row>
-    <v-row justify="center" v-if="journal?.entries.length > 0">
+    <v-row justify="center" v-if="journal?.entries">
           <ConfirmButton
             label="Add Entry"
             @click="addEntry"
           />
     </v-row>
+    <v-row justify="center" v-if="journal?.entries.length === 0">
+        <CancelButton 
+            @click="deleteJournal" 
+            label="Delete Journal" 
+        />
+    </v-row>
 </template>
 <script setup>
 import BodyJournalEntry from './BodyJournalEntry.vue'
+import { useJournalStore } from '@/presentation/stores/journal'
 
-const emits = defineEmits(['deleteEntry', 'addEntry'])
-const props = defineProps({
-    journal: {
-        type: Object,
-        required: true
-    }
-})
+const journalStore = useJournalStore()
+const journal = computed(() => journalStore.selectedJournal)
+
+const emits = defineEmits(['deleteJournal'])
+
 
 const addEntry = () => {
-    emits('addEntry', props.journal.id)
+    journalStore.addEntry(journal.value.id)
 }
 
-const handleDeleteEntry = (entryId) => {
-    console.log('delete this', entryId)
-    props.journal.entries.forEach(entry => console.log('before', entry.id))
-    props.journal.entries = props.journal.entries.filter(entry => entry.id !== entryId)
-    props.journal.entries.forEach(entry => console.log('after', entry.id))
+const deleteJournal = () => {
+    journalStore.deleteJournal(journal.value.id)
+    emits('deleteJournal')
 }
 
 </script>

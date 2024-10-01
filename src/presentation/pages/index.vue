@@ -3,13 +3,13 @@
     <v-row>
       <v-col class="bg-white">
         <Body 
-          :imgSrc="'/body-front.svg'" 
-          @addJournal="addJournal" />
+          :imgSrc="'/woman.jpg'" 
+          :journals="journals" 
+          :key="renderKey"
+        />
       </v-col>
       <v-col>
-        <BodyJournal 
-          :journal="selectedJournal"    
-          @addEntry="addEntry"/>
+        <BodyJournal @deleteJournal="handleDeleteJournal"/>
       </v-col>
     </v-row>
   </v-container>
@@ -18,28 +18,20 @@
 <script setup>
 import Body from '../components/Body.vue'
 import BodyJournal from '../components/BodyJournal.vue'
+import { useJournalStore } from '@/presentation/stores/journal'
 
+const journalStore = useJournalStore()
 const journals = ref([])
+const selectedJournal = ref(null)
+const renderKey = ref(0)
 
-const addJournal = (newJournal) => {
-  journals.value.forEach(journal => journal.show = false)
-  journals.value.push(newJournal)
+const handleDeleteJournal = () => {
+  renderKey.value++
 }
 
-const addEntry = (journalId) => {
-  journals.value.forEach(journal => {
-    if(journalId === journal.id){
-      journal.entries.push({
-      id: Date.now().toString().concat(Math.random().toString(20).substring(2,10)),
-      content: {ops: []}
-      })
-    }
-  })
-}
-
-const selectedJournal = computed(() => {
-  return journals.value.filter(journal => journal.show === true)[0] ?? []
-  }
-)
+onMounted(() => {
+  journals.value = journalStore.journals
+  selectedJournal.value = journalStore.selectedJournal
+})
 
 </script>

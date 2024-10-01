@@ -2,12 +2,13 @@
     <v-container align="center" justify="center">
         <v-row>
             <v-col>
-                <v-card class="bg-white" v-if="showEditor">
+                <v-card class="bg-white" v-if="showEditor" elevation="5">
                     <QuillEditor
-                        v-model:content="editorContent"
-                        :options="editorOptions"
+                        :content="props.entry.content"
+                        :options="EDITOR_OPTIONS"
                         theme="snow"
-                        :style="style"
+                        :style="EDITOR_STYLE"
+                        @update:content="updateContent"
                     />
                     <v-card-actions>
                         <confirm-button @click="saveContent" label="Save"/>
@@ -16,7 +17,7 @@
                 </v-card>
                 <v-card class="bg-white" v-else>
                     <EntryDisplay
-                        :content="savedContent"
+                        :content="props.entry.content"
                         @toggleShowEditor="toggleShowEditor"
                     />
                 </v-card>
@@ -30,34 +31,24 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import EntryDisplay from './EntryDisplay.vue'
 import ConfirmButton from './ConfirmButton.vue'
 import CancelButton from './CancelButton.vue'
+import { useJournalStore } from '@/presentation/stores/journal'
 
 const editorContent = ref('')
-const savedContent = ref('')
 const showEditor = ref(true)
+const journalStore = useJournalStore()
 
 const props = defineProps({
     journalId: {
         type: String,
         required: true
     },
-    entryId: {
-        type: String,
+    entry: {
+        type: Object,
         required: true
     }
 })
-const emits = defineEmits(['deleteEntry'])
 
-const saveContent = () =>{
-    savedContent.value = editorContent.value
-    toggleShowEditor()
-}
-
-const deleteEntry = () => {
-    emits('deleteEntry', props.entryId)
-}
-
-
-const editorOptions = {
+const EDITOR_OPTIONS = {
     theme: 'snow',
     modules: {
         toolbar: [
@@ -66,17 +57,42 @@ const editorOptions = {
         ['link', 'image'],
         ['clean']
         ]
-},
-    placeholder: 'Compose an epic...',
+    },
+    placeholder: 'Start typing...',
 }
 
-const style = {
-    height: '220px'
+const EDITOR_STYLE = {
+    height: '120px'
+}
+
+const saveContent = () =>{
+    journalStore.editEntry({
+        journalId: props.journalId, 
+        entryId: props.entry.id, 
+        updatedEntry: editorContent.value
+    })
+    showEditor.value = !showEditor.value
+}
+
+const updateContent = (content) => {
+    editorContent.value = content
+}
+
+const deleteEntry = () => {
+    journalStore.deleteEntry({
+        journalId: props.journalId, 
+        entryId: props.entry.id
+    })
 }
 
 const toggleShowEditor = () => {
     showEditor.value = !showEditor.value
 }
+
+onMounted(() => {
+    editorContent.value = props.entry.content
+})
+
 </script>
   
 <style scoped>
