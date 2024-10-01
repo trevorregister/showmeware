@@ -25,6 +25,9 @@ export default class Journal implements IJournal {
     constructor({
         x,
         y,
+    }: {
+        x: Number,
+        y: Number
     }){
         this.id = generateId(),
         this.circle = {
