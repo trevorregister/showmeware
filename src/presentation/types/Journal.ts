@@ -4,7 +4,7 @@ import { generateId } from "@/utils"
 interface ICircle{
     x: Number,
     y: Number,
-    radius: 13,
+    radius: Number,
     fill: 'green',
     stroke: 'black',
     strokeWidth: 2,
