@@ -1,3 +1,5 @@
+import Entry from './Entry'
+
 interface IJournal {
     id: String,
     x: Number,
@@ -7,7 +9,7 @@ interface IJournal {
     stroke: String,
     strokeWidth: Number,
     show: Boolean,
-    entries: Array
+    entries: Array<Entry>
 }
 
 export class Journal implements IJournal {
@@ -19,15 +21,15 @@ export class Journal implements IJournal {
     stroke: String
     strokeWidth: Number
     show: Boolean
-    entries: Array
+    entries: Array<Entry>
 
     constructor({
-        id: String,
-        x: Number,
-        y: Number,
-        fill: String,
-        show: Boolean,
-        entries: Array
+        id,
+        x,
+        y,
+        fill,
+        show,
+        entries
     }){
         this.id = id,
         this.x = x,
