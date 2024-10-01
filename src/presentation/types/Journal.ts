@@ -1,44 +1,33 @@
 import Entry from './Entry'
+import { generateId } from "@/utils"
+
+interface ICircle{
+    x: Number,
+    y: Number,
+    radius: 13,
+    fill: 'green',
+    stroke: 'black',
+    strokeWidth: 2,
+}
 
 interface IJournal {
     id: String,
-    x: Number,
-    y: Number,
-    radius: Number,
-    fill: String,
-    stroke: String,
-    strokeWidth: Number,
-    show: Boolean,
+    circle: ICircle,
     entries: Array<Entry>
 }
 
-export class Journal implements IJournal {
+
+export default class Journal implements IJournal {
     id: String
-    x: Number
-    y: Number
-    radius: Number
-    fill: String
-    stroke: String
-    strokeWidth: Number
-    show: Boolean
+    circle: ICircle
     entries: Array<Entry>
 
     constructor({
-        id,
-        x,
-        y,
-        fill,
-        show,
+        circle,
         entries
     }){
-        this.id = id,
-        this.x = x,
-        this.y = y
-        this.radius = 10,
-        this.fill = fill,
-        this.stroke = 'black',
-        this.strokeWidth = 2,
-        this.show = show,
+        this.id = generateId(),
+        this.circle = circle,
         this.entries = entries
     }
 }
