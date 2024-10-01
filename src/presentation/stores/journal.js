@@ -1,8 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import Delta from 'quill-delta'
 import { Entry } from '@/presentation/types/index'
-import { generateId } from '@/utils'
 
 export const useJournalStore = defineStore('journalStore', () => {
   const journals = ref([])
