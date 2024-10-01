@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import Delta from 'quill-delta'
+import { Entry } from '@/presentation/types/index'
 import { generateId } from '@/utils'
 
 export const useJournalStore = defineStore('journalStore', () => {
@@ -24,10 +25,7 @@ export const useJournalStore = defineStore('journalStore', () => {
 
   const addEntry = (journalId) => {
     const journal = journals.value.find(j => j.id === journalId)
-    const entry = {
-        id: generateId(),
-        content: new Delta()
-    }
+    const entry = new Entry()
     if (journal) {
       journal.entries.push(entry)
     }

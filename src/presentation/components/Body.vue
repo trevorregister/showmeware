@@ -19,9 +19,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import BodyJournalDot from './BodyJournalDot.vue'
-import { generateId } from '@/utils'
 import { useJournalStore } from '@/presentation/stores/journal'
-import Delta from 'quill-delta'
 import { Journal } from '@/presentation/types/index'
 
 const props = defineProps({
