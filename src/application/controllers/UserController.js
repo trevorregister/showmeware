@@ -25,8 +25,8 @@ const UserController = {
         return await SignOut.execute()
     },
 
-    async signInWithOauth(provider){
-        return await SignInWithOauth.execute(provider)
+    async signInWithOauth({provider, options}){
+        return await SignInWithOauth.execute({provider: provider, options: options})
     }
 }
 

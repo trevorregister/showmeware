@@ -1,6 +1,9 @@
 <template>
   <v-container>
     <v-row>
+      <v-btn to="/login" @click="logout">Logout</v-btn>
+    </v-row>
+    <v-row>
       <v-col class="bg-white">
         <Body 
           :imgSrc="'/woman.jpg'" 
@@ -19,6 +22,7 @@
 import Body from '../components/Body.vue'
 import BodyJournal from '../components/BodyJournal.vue'
 import { useJournalStore } from '@/presentation/stores/journal'
+import { client } from '@/application/client'
 
 const journalStore = useJournalStore()
 const journals = ref([])
@@ -33,5 +37,9 @@ onMounted(() => {
   journals.value = journalStore.journals
   selectedJournal.value = journalStore.selectedJournal
 })
+
+const logout = async () => {
+  await client.users.signOut()
+}
 
 </script>

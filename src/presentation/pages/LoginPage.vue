@@ -77,7 +77,12 @@ async function login(){
 }
 
 async function loginWithGoogle(){
-    const { user } = await client.users.signInWithOauth('google')
+    const { user } = await client.users.signInWithOauth({
+      provider: 'google',
+      options: {
+        scopes: ['https://www.googleapis.com/auth/calendar.events']
+      }
+    })
     return user
 }
 </script>

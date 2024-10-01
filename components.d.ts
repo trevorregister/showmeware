@@ -14,6 +14,7 @@ declare module 'vue' {
     CancelButton: typeof import('./src/presentation/components/CancelButton.vue')['default']
     ConfirmButton: typeof import('./src/presentation/components/ConfirmButton.vue')['default']
     EntryDisplay: typeof import('./src/presentation/components/EntryDisplay.vue')['default']
+    Gcal: typeof import('./src/presentation/components/gcal.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
