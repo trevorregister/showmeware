@@ -56,19 +56,8 @@ const handleStageClick = (e) => {
   }
   else{
     const newJournal = new Journal({
-    id: generateId(),
-    circle: {
       x: pointerPosition.x,
       y: pointerPosition.y,
-      radius: 7,
-      fill: 'green',
-      stroke: 'black',
-      strokeWidth: 2,
-    },
-    entries: [{
-      id: generateId(),
-      content: new Delta()
-      }]
     })
     journalStore.addJournal(newJournal)
     journalStore.setSelectedJournal(newJournal.id)

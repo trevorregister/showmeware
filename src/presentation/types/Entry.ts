@@ -1,22 +1,17 @@
 import Delta from 'quill-delta'
+import { generateId } from '@/utils'
 
 interface IEntry {
     id: String,
-    content: Array<Delta>
+    content: Delta
 }
 
 export default class Entry implements IEntry {
     id: String;
-    content: Array<Delta>
+    content: Delta
 
-    constructor({
-        id,
-        content
-    }: {
-        id: String,
-        content: Array<Delta>
-    }) {
-        this.id = id;
-        this.content = content
+    constructor() {
+        this.id = generateId()
+        this.content = new Delta()
     }
 }

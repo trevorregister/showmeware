@@ -23,11 +23,18 @@ export default class Journal implements IJournal {
     entries: Array<Entry>
 
     constructor({
-        circle,
-        entries
+        x,
+        y,
     }){
         this.id = generateId(),
-        this.circle = circle,
-        this.entries = entries
+        this.circle = {
+            x,
+            y,
+            radius: 13,
+            fill: 'green',
+            stroke: 'black',
+            strokeWidth: 2,
+        },
+        this.entries = [new Entry()]
     }
 }
