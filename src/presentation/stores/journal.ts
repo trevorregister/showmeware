@@ -1,39 +1,38 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, Ref } from 'vue'
+import { Entry, Journal } from '@/presentation/types'
 import Delta from 'quill-delta'
-import { generateId } from '@/utils'
 
 export const useJournalStore = defineStore('journalStore', () => {
-  const journals = ref([])
-  const selectedJournal = ref(null)
-  const selectedEntry = ref(null)
+  const journals: Ref<Journal[]> = ref([])
+  const selectedJournal: Ref<Journal | null> = ref(null)
+  const selectedEntry: Ref<Entry | null> = ref(null)
 
-  const addJournal = (journal) => {
+  const addJournal = (journal: Journal): void => {
     journals.value.push(journal)
   }
 
-  const setSelectedJournal = (journalId) => {
+  const setSelectedJournal = (journalId: string): void => {
     journals.value.forEach(j => j.circle.radius = 7)
-    selectedJournal.value = journals.value.find(j => j.id === journalId)
-    selectedJournal.value.circle.radius = 13
-  }
-
-  const setSelectedEntry = (entryId) => {
-    selectedEntry.value = selectedJournal.value.entries.find(e => e.id === entryId)
-  }
-
-  const addEntry = (journalId) => {
-    const journal = journals.value.find(j => j.id === journalId)
-    const entry = {
-        id: generateId(),
-        content: new Delta()
+    selectedJournal.value = journals.value.find(j => j.id === journalId) || null
+    if (selectedJournal.value) {
+      selectedJournal.value.circle.radius = 13
     }
+  }
+
+  const setSelectedEntry = (entryId: string): void => {
+    selectedEntry.value = selectedJournal.value?.entries.find(e => e.id === entryId) || null
+  }
+
+  const addEntry = (journalId: string): void => {
+    const journal = journals.value.find(j => j.id === journalId)
+    const entry = new Entry()
     if (journal) {
       journal.entries.push(entry)
     }
   }
 
-  const editEntry = ({journalId, entryId, updatedEntry}) => {
+  const editEntry = ({journalId, entryId, updatedEntry}: {journalId: string, entryId: string, updatedEntry: Delta}): void => {
     const journal = journals.value.find(j => j.id === journalId)
     if (journal) {
       const entryIndex = journal.entries.findIndex(e => e.id === entryId)
@@ -43,23 +42,23 @@ export const useJournalStore = defineStore('journalStore', () => {
     }
   }
 
-  const deleteJournal = (journalId) => {
+  const deleteJournal = (journalId: string): void => {
     journals.value = journals.value.filter(j => j.id !== journalId)
-    selectedJournal.value = journals.value[0]
+    selectedJournal.value = journals.value[0] || null
   }
 
-  const deleteEntry = ({journalId, entryId}) => {
+  const deleteEntry = ({journalId, entryId}: {journalId: string, entryId: string}): void => {
     const journal = journals.value.find(j => j.id === journalId)
     if (journal) {
       journal.entries = journal.entries.filter(e => e.id !== entryId)
     }
   }
 
-  const getJournalById = (id) => {
+  const getJournalById = (id: string): Journal | undefined => {
     return journals.value.find(journal => journal.id === id)
   }
 
-  const getEntriesByJournalId = (journalId) => {
+  const getEntriesByJournalId = (journalId: string): Entry[] => {
     const journal = journals.value.find(journal => journal.id === journalId)
     return journal ? journal.entries : []
   }
@@ -67,6 +66,7 @@ export const useJournalStore = defineStore('journalStore', () => {
   return {
     journals,
     selectedJournal,
+    selectedEntry,
     addJournal,
     addEntry,
     editEntry,

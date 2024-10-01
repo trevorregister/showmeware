@@ -19,9 +19,8 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import BodyJournalDot from './BodyJournalDot.vue'
-import { generateId } from '@/utils'
 import { useJournalStore } from '@/presentation/stores/journal'
-import Delta from 'quill-delta'
+import { Journal } from '@/presentation/types/index'
 
 const props = defineProps({
   imgSrc: {
@@ -54,21 +53,10 @@ const handleStageClick = (e) => {
     return
   }
   else{
-    const newJournal = {
-    id: generateId(),
-    circle: {
+    const newJournal = new Journal({
       x: pointerPosition.x,
       y: pointerPosition.y,
-      radius: 7,
-      fill: 'green',
-      stroke: 'black',
-      strokeWidth: 2,
-    },
-    entries: [{
-      id: generateId(),
-      content: new Delta()
-      }]
-    }
+    })
     journalStore.addJournal(newJournal)
     journalStore.setSelectedJournal(newJournal.id)
   }
