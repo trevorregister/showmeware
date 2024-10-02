@@ -61,7 +61,6 @@ const valid = ref(false)
 const email = ref('')
 const password = ref('')
 const showPassword = ref(false)
-
 const emailRules = [
     v => !!v || 'E-mail is required',
     v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
