@@ -21,6 +21,9 @@
     <v-row>
       <v-btn to="/choose-calendar">Choose Calendar</v-btn>
     </v-row>
+    <v-row>
+      <v-btn @click="updateCalendarId">Update Calendar</v-btn>
+    </v-row>
   </v-container>
 </template>
 

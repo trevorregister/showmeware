@@ -4,7 +4,8 @@ import CalendarController from './controllers/CalendarController'
 
 const client = {
     profiles: {
-        getProfileByUserId: async (user_id: string) => ProfileController.getProfileByUserId(user_id)
+        getProfileByUserId: async (user_id: string) => ProfileController.getProfileByUserId(user_id),
+        updateCalendarId: async ({user_id, calendar_id}: {user_id: string, calendar_id: string}) => ProfileController.updateCalendarId({user_id, calendar_id})
     },
     users: {
         signUpNewUser: async ({email, password, options = {}}: {email: string, password: string, options?: object}) => UserController.signUpNewUser({
