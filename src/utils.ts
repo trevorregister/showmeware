@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid'
+
 export function generateId(): string{
-    return (Math.random()).toString(20).substring(2,18)
+    return uuidv4()
 }
