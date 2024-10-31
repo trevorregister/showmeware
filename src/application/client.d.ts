@@ -9,6 +9,7 @@ declare module 'client' {
             signOut(): Promise<any>
             signInWithOauth(provider: string): Promise<any>
             getSession(): Promise<any>
+            getCalendars(token: string): Promise<any>
         }
     }
 }
