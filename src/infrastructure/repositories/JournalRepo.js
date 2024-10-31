@@ -16,7 +16,6 @@ const JournalRepo = {
     },
 
     async createJournal(journal){
-        const { id } = supabase.auth.getUser()
         const newJournal = {
             id: journal.id,
             circle: journal.circle,
@@ -32,6 +31,14 @@ const JournalRepo = {
         await supabase
             .from('entries')
             .insert(newEntry)
+    },
+
+    async getJournals(){
+        const { data, error } = await supabase
+            .from('journals')
+            .select('*')
+
+        return data
     }
     
 }

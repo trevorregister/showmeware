@@ -20,7 +20,8 @@ const client = {
         getCalendars: async(token: string) => CalendarController.getCalendars(token)
     },
     journals: {
-        createJournal: async(journal: object) => JournalController.createJournal(journal)
+        createJournal: async(journal: object) => JournalController.createJournal(journal),
+        getJournals: async() => JournalController.getJournals()
     }
 }
 

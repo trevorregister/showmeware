@@ -12,5 +12,9 @@ declare module 'client' {
             getSession(): Promise<any>
             getCalendars(token: string): Promise<any>
         }
+        journals: {
+            createJournal(journal: object): Promise<any>
+            getJournals(): Promise<any>
+        }
     }
 }
