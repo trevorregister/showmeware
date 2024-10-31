@@ -15,6 +15,12 @@
         <BodyJournal @deleteJournal="handleDeleteJournal"/>
       </v-col>
     </v-row>
+    <v-row>
+      <v-btn @click="getCalendars">Cal</v-btn>
+    </v-row>
+    <v-row>
+      <v-btn to="/choose-calendar">Choose Calendar</v-btn>
+    </v-row>
   </v-container>
 </template>
 
@@ -42,4 +48,9 @@ const logout = async () => {
   await client.users.signOut()
 }
 
+const getCalendars = async () => {
+    const {session } = await client.users.getSession()
+    const calendars = await client.users.getCalendars(session.provider_token)
+    console.log(calendars)
+}
 </script>

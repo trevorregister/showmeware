@@ -9,23 +9,28 @@ import { createRouter, createWebHistory } from 'vue-router/auto'
 import Index from '../pages/index.vue'
 import LoginPage from '../pages/LoginPage.vue'
 import CreateAccountPage from '../pages/CreateAccountPage.vue'
-
+import ChooseCalendarPage from '../pages/ChooseCalendarPage.vue'
 const routes = [
   {
     path: '/',
-    name: 'Index',
+    name: 'index',
     component: Index
   },
   {
     path: '/login',
-    name: 'Login',
+    name: 'login',
     component: LoginPage
   },
   {
     path: '/create-account',
-    name: 'Create Account',
+    name: 'create-account',
     component: CreateAccountPage
-  }
+  },
+  {
+    path: '/choose-calendar',
+    name: 'choose-calendar',
+    component: ChooseCalendarPage
+  },
 ]
 
 const router = createRouter({

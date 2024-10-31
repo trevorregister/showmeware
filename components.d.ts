@@ -11,6 +11,7 @@ declare module 'vue' {
     BodyJournal: typeof import('./src/presentation/components/BodyJournal.vue')['default']
     BodyJournalDot: typeof import('./src/presentation/components/BodyJournalDot.vue')['default']
     BodyJournalEntry: typeof import('./src/presentation/components/BodyJournalEntry.vue')['default']
+    CalendarCard: typeof import('./src/presentation/components/CalendarCard.vue')['default']
     CancelButton: typeof import('./src/presentation/components/CancelButton.vue')['default']
     ConfirmButton: typeof import('./src/presentation/components/ConfirmButton.vue')['default']
     EntryDisplay: typeof import('./src/presentation/components/EntryDisplay.vue')['default']

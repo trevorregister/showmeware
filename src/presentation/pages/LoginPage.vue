@@ -56,7 +56,6 @@
 <script setup>
 import { ref } from 'vue'
 import { client } from '@/application/client'
-
 const valid = ref(false)
 const email = ref('')
 const password = ref('')
@@ -76,11 +75,11 @@ async function login(){
 }
 
 async function loginWithGoogle(){
-    await client.users.signInWithOauth({
-      provider: 'google',
-      options: {
-        scopes: ['https://www.googleapis.com/auth/calendar']
-      }
-    })
+      await client.users.signInWithOauth({
+        provider: 'google',
+        options: {
+          scopes: ['https://www.googleapis.com/auth/calendar']
+        }
+      })
 }
 </script>
