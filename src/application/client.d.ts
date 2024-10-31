@@ -2,7 +2,7 @@ declare module 'client' {
     export const client: {
         profiles: {
             getProfileByUserId(user_id: string): Promise<any>
-            updateCalendarId(user_id: string, calendarId: string): Promise<any>
+            updateCalendarId(calendar_id: string): Promise<any>
         }
         users: {
             signUpNewUser(data: { email: string; password: string; options?: object }): Promise<any>
