@@ -16,6 +16,7 @@ const client = {
             password: password
         }),
         signInWithOauth: async({provider, options = {}}: {provider: string, options: object}) => UserController.signInWithOauth({provider, options}),
+        getSession: async() => UserController.getSession(),
         signOut: async() => UserController.signOut()
     }
 }

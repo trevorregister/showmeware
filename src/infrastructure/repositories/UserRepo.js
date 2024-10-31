@@ -29,6 +29,12 @@ const UserRepo = {
         return data
     },
 
+    async getSession(){
+        const session = await supabase.auth.getSession()
+
+        return session
+    },
+
     async signOut(){
         await supabase.auth.signOut()
     },
