@@ -1,7 +1,4 @@
-import ProfileController from './controllers/ProfileController'
-import UserController from './controllers/UserController'
-import CalendarController from './controllers/CalendarController'
-
+import { ProfileController, UserController, CalendarController, JournalController } from './controllers/index'
 const client = {
     profiles: {
         getProfileByUserId: async (user_id: string) => ProfileController.getProfileByUserId(user_id),
@@ -21,6 +18,9 @@ const client = {
         getSession: async() => UserController.getSession(),
         signOut: async() => UserController.signOut(),
         getCalendars: async(token: string) => CalendarController.getCalendars(token)
+    },
+    journals: {
+        createJournal: async(journal: object) => JournalController.createJournal(journal)
     }
 }
 

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, Ref } from 'vue'
 import { Entry, Journal } from '@/presentation/types'
+import { client } from '@/application/client'
 import Delta from 'quill-delta'
 
 export const useJournalStore = defineStore('journalStore', () => {
@@ -8,7 +9,8 @@ export const useJournalStore = defineStore('journalStore', () => {
   const selectedJournal: Ref<Journal | null> = ref(null)
   const selectedEntry: Ref<Entry | null> = ref(null)
 
-  const addJournal = (journal: Journal): void => {
+  const addJournal = async (journal: Journal): Promise<void> => {
+    await client.journals.createJournal(journal)
     journals.value.push(journal)
   }
 

@@ -20,11 +20,18 @@ const JournalRepo = {
         const newJournal = {
             id: journal.id,
             circle: journal.circle,
-            user_id: id
+        }
+        const newEntry = {
+            id: journal.entries[0].id,
+            content: journal.entries[0].content,
+            journal_id: journal.id,
         }
         const { data, error } = await supabase
             .from('journals')
             .insert(newJournal)
+        await supabase
+            .from('entries')
+            .insert(newEntry)
     }
     
 }
