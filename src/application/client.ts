@@ -1,5 +1,6 @@
-import ProfileController from "./controllers/ProfileController"
-import UserController from "./controllers/UserController"
+import ProfileController from './controllers/ProfileController'
+import UserController from './controllers/UserController'
+import CalendarController from './controllers/CalendarController'
 
 const client = {
     profiles: {
@@ -15,8 +16,10 @@ const client = {
             email: email,
             password: password
         }),
-        signInWithOauth: async(provider: string) => UserController.signInWithOauth(provider),
-        signOut: async() => UserController.signOut()
+        signInWithOauth: async({provider, options = {}}: {provider: string, options: object}) => UserController.signInWithOauth({provider, options}),
+        getSession: async() => UserController.getSession(),
+        signOut: async() => UserController.signOut(),
+        getCalendars: async(token: string) => CalendarController.getCalendars(token)
     }
 }
 

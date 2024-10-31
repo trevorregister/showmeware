@@ -2,7 +2,8 @@ import {
     SignUpNewUser,
     SignInWithEmailPassword,
     SignOut,
-    SignInWithOauth
+    SignInWithOauth,
+    GetSession
 } from '../use-cases/users/index'
 
 const UserController = {
@@ -25,8 +26,12 @@ const UserController = {
         return await SignOut.execute()
     },
 
-    async signInWithOauth(provider){
-        return await SignInWithOauth.execute(provider)
+    async signInWithOauth({provider, options}){
+        return await SignInWithOauth.execute({provider: provider, options: options})
+    },
+
+    async getSession(){
+        return await GetSession.execute()
     }
 }
 

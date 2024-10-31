@@ -56,12 +56,10 @@
 <script setup>
 import { ref } from 'vue'
 import { client } from '@/application/client'
-
 const valid = ref(false)
 const email = ref('')
 const password = ref('')
 const showPassword = ref(false)
-
 const emailRules = [
     v => !!v || 'E-mail is required',
     v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
@@ -77,7 +75,11 @@ async function login(){
 }
 
 async function loginWithGoogle(){
-    const { user } = await client.users.signInWithOauth('google')
-    return user
+      await client.users.signInWithOauth({
+        provider: 'google',
+        options: {
+          scopes: ['https://www.googleapis.com/auth/calendar']
+        }
+      })
 }
 </script>

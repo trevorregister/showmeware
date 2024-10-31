@@ -20,12 +20,19 @@ const UserRepo = {
         return data
     },
 
-    async signInWithOauth(provider){
+    async signInWithOauth({provider, options}){
         const { data, error } = await supabase.auth.signInWithOAuth({
-            provider: provider
+            provider: provider,
+            options: options
         })
 
         return data
+    },
+
+    async getSession(){
+        const session = await supabase.auth.getSession()
+
+        return session
     },
 
     async signOut(){
