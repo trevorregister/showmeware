@@ -34,6 +34,7 @@
   }
 
   const createEvent = async () => {
+    const calendarId = userStore.getCalendarId()
     const token = userStore.getAuthToken()
     const event = {
       start: {
@@ -48,7 +49,7 @@
     }
     await client.calendars.createEvent({
       token: token, 
-      calendarId: '8c5953dc51d1aa3fb8b865719d574007c547dedd3feffcda587bde9f6051732d@group.calendar.google.com', 
+      calendarId: calendarId, 
       event: event
     })
   }

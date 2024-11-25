@@ -3,7 +3,8 @@ import {
     SignInWithEmailPassword,
     SignOut,
     SignInWithOauth,
-    GetSession
+    GetSession,
+    GetMyself
 } from '../use-cases/users/index'
 
 const UserController = {
@@ -32,6 +33,10 @@ const UserController = {
 
     async getSession(){
         return await GetSession.execute()
+    },
+
+    async getMyself(){
+        return await GetMyself.execute()
     }
 }
 

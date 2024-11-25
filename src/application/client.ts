@@ -22,7 +22,8 @@ const client = {
         signInWithOauth: async({provider, options = {}}: {provider: string, options: object}) => UserController.signInWithOauth({provider, options}),
         getSession: async() => UserController.getSession(),
         signOut: async() => UserController.signOut(),
-        getCalendars: async(token: string) => CalendarController.getCalendars(token)
+        getCalendars: async(token: string) => CalendarController.getCalendars(token),
+        getMyself: async() => UserController.getMyself()
     },
     journals: {
         createJournal: async(journal: object) => JournalController.createJournal(journal),

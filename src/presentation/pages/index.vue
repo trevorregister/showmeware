@@ -30,6 +30,7 @@ import BodyJournal from '../components/BodyJournal.vue'
 import { useJournalStore } from '@/presentation/stores/journal'
 import { client } from '@/application/client'
 import { useUserStore } from '@/presentation/stores/user'
+import supabase from '@/infrastructure/database/database-service'
 
 const journalStore = useJournalStore()
 const userStore = useUserStore()
@@ -45,9 +46,14 @@ onMounted(async () => {
   const retrievedJournals = await journalStore.getJournals()
   journals.value = retrievedJournals
   selectedJournal.value = journalStore.selectedJournal
+
   const session = await client.users.getSession()
-  const authToken = userStore.getAuthToken()
   userStore.setAuthToken(session.session.provider_token)
+  const { user } = await client.users.getMyself()
+  userStore.setUserId(user.id)
+  const profile = await client.profiles.getProfileByUserId(user.id)
+  userStore.setCalendarId(profile.calendar_id)
+  
   renderKey.value++
 })
 

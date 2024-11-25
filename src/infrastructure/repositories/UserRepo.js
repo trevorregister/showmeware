@@ -33,6 +33,11 @@ const UserRepo = {
         return data
     },
 
+    async getMyself(){
+        const { data } = await supabase.auth.getUser()
+        return data
+    },
+
     async getUser(){
         const { data: { user }, error } = await supabase.auth.getUser()
 
