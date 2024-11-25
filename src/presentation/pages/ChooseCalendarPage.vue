@@ -22,6 +22,7 @@
   <script setup>
   import { ref } from 'vue'
   import ConfirmButton from '../components/ConfirmButton.vue';
+  import { client } from '@/application/client'
   
   // Sample data for calendars
   const calendars = ref([
@@ -33,8 +34,8 @@
     { name: 'Fitness Calendar', summary: 'Workout schedules and fitness goals', id: 6},
   ])
   
-  const selectCalendar = (calendar) => {
-    console.log(calendar.id)
+  const selectCalendar = async (calendar) => {
+    await client.profiles.updateCalendarId(calendar.id)
   }
   
   </script>

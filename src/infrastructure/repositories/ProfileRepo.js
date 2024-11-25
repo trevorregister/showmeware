@@ -15,18 +15,16 @@ const ProfileRepo = {
         return data
     },
     
-    async updateCalendarId({user_id, calendar_id}) {
-        console.log('calendar_id', calendar_id)
-        try {
+    async updateCalendarId({user_id, calendar_id}) { 
             const { data, error } = await supabase
                 .from('profiles')
                 .update({ calendar_id: calendar_id })
                 .eq('user_id', user_id)
-            console.log('data', data)
-            return data
-        } catch (err) {
-            console.log(err)
+        if (error) {
+            throw new Error(error.message)
         }
+
+        return data
     }
 }
 

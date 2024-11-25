@@ -56,6 +56,7 @@
 <script setup>
 import { ref } from 'vue'
 import { client } from '@/application/client'
+import { useUserStore } from '@/presentation/stores/user'
 const valid = ref(false)
 const email = ref('')
 const password = ref('')
@@ -64,6 +65,7 @@ const emailRules = [
     v => !!v || 'E-mail is required',
     v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
     ]
+const userStore = useUserStore()
 
 async function login(){
     if (valid.value) {
@@ -75,11 +77,11 @@ async function login(){
 }
 
 async function loginWithGoogle(){
-      await client.users.signInWithOauth({
+    await client.users.signInWithOauth({
         provider: 'google',
-        options: {
-          scopes: ['https://www.googleapis.com/auth/calendar']
-        }
-      })
+          options: {
+            scopes: ['https://www.googleapis.com/auth/calendar']
+          }
+        })
 }
 </script>

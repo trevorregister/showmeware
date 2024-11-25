@@ -35,6 +35,12 @@ const UserRepo = {
         return session
     },
 
+    async getUser(){
+        const { data: { user }, error } = await supabase.auth.getUser()
+
+        return user
+    },
+
     async signOut(){
         await supabase.auth.signOut()
     },

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, Ref } from 'vue'
 import { Entry, Journal } from '@/presentation/types'
+import { client } from '@/application/client'
 import Delta from 'quill-delta'
 
 export const useJournalStore = defineStore('journalStore', () => {
@@ -8,8 +9,15 @@ export const useJournalStore = defineStore('journalStore', () => {
   const selectedJournal: Ref<Journal | null> = ref(null)
   const selectedEntry: Ref<Entry | null> = ref(null)
 
-  const addJournal = (journal: Journal): void => {
+  const addJournal = async (journal: Journal): Promise<void> => {
+    await client.journals.createJournal(journal)
     journals.value.push(journal)
+  }
+
+  const getJournals = async (): Promise<Journal[]> => {
+    journals.value = await client.journals.getJournals()
+    selectedJournal.value = journals.value[0] ?? null
+    return journals.value
   }
 
   const setSelectedJournal = (journalId: string): void => {
@@ -24,33 +32,37 @@ export const useJournalStore = defineStore('journalStore', () => {
     selectedEntry.value = selectedJournal.value?.entries.find(e => e.id === entryId) || null
   }
 
-  const addEntry = (journalId: string): void => {
+  const addEntry = async (journalId: string): Promise<void> => {
     const journal = journals.value.find(j => j.id === journalId)
     const entry = new Entry()
     if (journal) {
       journal.entries.push(entry)
+      await client.entries.createEntry({journal_id: journalId, entry})
     }
   }
 
-  const editEntry = ({journalId, entryId, updatedEntry}: {journalId: string, entryId: string, updatedEntry: Delta}): void => {
+  const editEntry = async ({journalId, entryId, updatedEntry}: {journalId: string, entryId: string, updatedEntry: Delta}): Promise<void> => {
     const journal = journals.value.find(j => j.id === journalId)
     if (journal) {
       const entryIndex = journal.entries.findIndex(e => e.id === entryId)
       if (entryIndex !== -1) {
         journal.entries[entryIndex].content = updatedEntry
+        await client.entries.updateEntryById({entry_id: entryId, content: updatedEntry})
       }
     }
   }
 
-  const deleteJournal = (journalId: string): void => {
+  const deleteJournal = async (journalId: string): Promise<void> => {
     journals.value = journals.value.filter(j => j.id !== journalId)
+    await client.journals.deleteJournalById(journalId)
     selectedJournal.value = journals.value[0] || null
   }
 
-  const deleteEntry = ({journalId, entryId}: {journalId: string, entryId: string}): void => {
+  const deleteEntry = async ({journalId, entryId}: {journalId: string, entryId: string}): Promise<void> => {
     const journal = journals.value.find(j => j.id === journalId)
     if (journal) {
       journal.entries = journal.entries.filter(e => e.id !== entryId)
+      await client.entries.deleteEntryById(entryId)
     }
   }
 
@@ -68,6 +80,7 @@ export const useJournalStore = defineStore('journalStore', () => {
     selectedJournal,
     selectedEntry,
     addJournal,
+    getJournals,
     addEntry,
     editEntry,
     deleteJournal,

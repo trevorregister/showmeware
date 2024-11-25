@@ -21,9 +21,6 @@
     <v-row>
       <v-btn to="/choose-calendar">Choose Calendar</v-btn>
     </v-row>
-    <v-row>
-      <v-btn @click="updateCalendarId">Update Calendar</v-btn>
-    </v-row>
   </v-container>
 </template>
 
@@ -42,9 +39,11 @@ const handleDeleteJournal = () => {
   renderKey.value++
 }
 
-onMounted(() => {
-  journals.value = journalStore.journals
+onMounted(async () => {
+  const retrievedJournals = await journalStore.getJournals()
+  journals.value = retrievedJournals
   selectedJournal.value = journalStore.selectedJournal
+  renderKey.value++
 })
 
 const logout = async () => {
@@ -54,6 +53,5 @@ const logout = async () => {
 const getCalendars = async () => {
     const {session } = await client.users.getSession()
     const calendars = await client.users.getCalendars(session.provider_token)
-    console.log(calendars)
 }
 </script>
