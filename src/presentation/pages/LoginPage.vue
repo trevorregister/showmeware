@@ -83,5 +83,7 @@ async function loginWithGoogle(){
             scopes: ['https://www.googleapis.com/auth/calendar']
           }
         })
+    const {session } = await client.users.getSession()
+    userStore.setAuthToken(session.provider_token)
 }
 </script>
