@@ -1,4 +1,10 @@
 <template>
+    <div>
+        <CreateEventModal
+            :modelValue="isModalOpen"
+            @update:modelValue="isModalOpen = $event"
+         />
+    </div>
     <v-card class="event-display bg-white">
         <QuillEditor
             :content="props.content"
@@ -9,6 +15,7 @@
         />
         <v-card-actions>
             <v-btn @click="toggleShowEditor" class="bg-accent">Edit</v-btn>
+            <confirm-button label="Export to Calendar" @click="openModal"/>
         </v-card-actions>
     </v-card>
 </template>
@@ -16,6 +23,7 @@
 <script setup>
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
+import CreateEventModal from './CreateEventModal.vue'
 
 const props = defineProps({
     content: {
@@ -23,11 +31,15 @@ const props = defineProps({
         type: JSON
     }
 })
+const isModalOpen = ref(false)
 const emits = defineEmits(['toggleShowEditor'])
 const displayOptions = {
     modules: {
         toolbar: false
     }
+}
+const openModal = () => {
+    isModalOpen.value = true
 }
 const style = {
     height: '220px'

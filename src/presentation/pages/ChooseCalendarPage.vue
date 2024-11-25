@@ -30,6 +30,7 @@
   
   const selectCalendar = async (calendar) => {
     await client.profiles.updateCalendarId(calendar.id)
+    userStore.setCalendarId(calendar.id)
     router.push('/')
   }
 
@@ -47,11 +48,12 @@
       },
       summary: 'Test Event'
     }
-    await client.calendars.createEvent({
+    console.log(event)
+/*     await client.calendars.createEvent({
       token: token, 
       calendarId: calendarId, 
       event: event
-    })
+    }) */
   }
 
   onMounted(async () => {
