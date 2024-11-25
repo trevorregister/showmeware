@@ -57,10 +57,11 @@ export const useJournalStore = defineStore('journalStore', () => {
     selectedJournal.value = journals.value[0] || null
   }
 
-  const deleteEntry = ({journalId, entryId}: {journalId: string, entryId: string}): void => {
+  const deleteEntry = async ({journalId, entryId}: {journalId: string, entryId: string}): Promise<void> => {
     const journal = journals.value.find(j => j.id === journalId)
     if (journal) {
       journal.entries = journal.entries.filter(e => e.id !== entryId)
+      await client.entries.deleteEntryById(entryId)
     }
   }
 

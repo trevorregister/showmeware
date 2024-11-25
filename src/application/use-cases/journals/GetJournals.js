@@ -12,7 +12,6 @@ const GetJournals = {
             entries.forEach(entry => entry.content = new Delta(entry.content))
             journalsToWeb.push(journalToWeb({DbJournal: journal, DbEntries: entries}))
         }
-        console.log('journalsToWeb', journalsToWeb)
         return journalsToWeb
     }
 }

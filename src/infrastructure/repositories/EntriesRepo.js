@@ -29,6 +29,14 @@ const EntriesRepo = {
 
         return data
     },
+
+    async deleteEntryById(entry_id){
+        const { data, error } = await supabase
+            .from('entries')
+            .delete()
+            .eq('id', entry_id)
+        return data
+    }
 }
 
 export default EntriesRepo

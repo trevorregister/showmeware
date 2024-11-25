@@ -30,7 +30,8 @@ const client = {
     },
     entries: {
         updateEntryById: async({entry_id, content}: {entry_id: string, content: object}) => EntriesController.updateEntryById({entry_id, content}),
-        createEntry: async({journal_id, entry}: {journal_id: string, entry: object}) => EntriesController.createEntry({journal_id, entry})
+        createEntry: async({journal_id, entry}: {journal_id: string, entry: object}) => EntriesController.createEntry({journal_id, entry}),
+        deleteEntryById: async(entry_id: string) => EntriesController.deleteEntryById(entry_id)
     }
 }
 
