@@ -38,11 +38,11 @@
     const event = {
       start: {
         dateTime: '2024-11-25T10:00:00',
-        timeZone: 'Europe/Madrid'
+        timeZone: 'America/New_York'
       },
       end: {
         dateTime: '2024-11-25T11:00:00',
-        timeZone: 'Europe/Madrid'
+        timeZone: 'America/New_York'
       },
       summary: 'Test Event'
     }
