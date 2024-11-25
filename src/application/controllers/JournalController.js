@@ -1,4 +1,4 @@
-import { CreateJournal, GetJournals } from '../use-cases/journals/index'
+import { CreateJournal, GetJournals, DeleteJournalById } from '../use-cases/journals/index'
 
 const JournalController = {
     async createJournal(journal) {
@@ -6,6 +6,9 @@ const JournalController = {
     },
     async getJournals() {
         return await GetJournals.execute()
+    },
+    async deleteJournalById(journal_id){
+        return await DeleteJournalById.execute(journal_id)
     }
 }
 

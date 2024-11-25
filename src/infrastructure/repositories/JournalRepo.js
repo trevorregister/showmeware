@@ -40,8 +40,21 @@ const JournalRepo = {
             .select('*')
 
         return data
+    },
+
+    async deleteJournalById(journal_id){
+        const { data, error } = await supabase
+            .from('journals')
+            .delete()
+            .eq('id', journal_id)
+        
+        await supabase
+            .from('entries')
+            .delete()
+            .eq('journal_id', journal_id)
+
+        return data
     }
-    
 }
 
 export default JournalRepo

@@ -52,8 +52,9 @@ export const useJournalStore = defineStore('journalStore', () => {
     }
   }
 
-  const deleteJournal = (journalId: string): void => {
+  const deleteJournal = async (journalId: string): Promise<void> => {
     journals.value = journals.value.filter(j => j.id !== journalId)
+    await client.journals.deleteJournalById(journalId)
     selectedJournal.value = journals.value[0] || null
   }
 

@@ -26,7 +26,8 @@ const client = {
     },
     journals: {
         createJournal: async(journal: object) => JournalController.createJournal(journal),
-        getJournals: async() => JournalController.getJournals()
+        getJournals: async() => JournalController.getJournals(),
+        deleteJournalById: async(journal_id: string) => JournalController.deleteJournalById(journal_id)
     },
     entries: {
         updateEntryById: async({entry_id, content}: {entry_id: string, content: object}) => EntriesController.updateEntryById({entry_id, content}),
