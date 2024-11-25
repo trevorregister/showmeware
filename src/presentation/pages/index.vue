@@ -29,8 +29,10 @@ import Body from '../components/Body.vue'
 import BodyJournal from '../components/BodyJournal.vue'
 import { useJournalStore } from '@/presentation/stores/journal'
 import { client } from '@/application/client'
+import { useUserStore } from '@/presentation/stores/user'
 
 const journalStore = useJournalStore()
+const userStore = useUserStore()
 const journals = ref([])
 const selectedJournal = ref(null)
 const renderKey = ref(0)
@@ -43,15 +45,13 @@ onMounted(async () => {
   const retrievedJournals = await journalStore.getJournals()
   journals.value = retrievedJournals
   selectedJournal.value = journalStore.selectedJournal
+  const session = await client.users.getSession()
+  const authToken = userStore.getAuthToken()
+  userStore.setAuthToken(session.session.provider_token)
   renderKey.value++
 })
 
 const logout = async () => {
   await client.users.signOut()
-}
-
-const getCalendars = async () => {
-    const {session } = await client.users.getSession()
-    const calendars = await client.users.getCalendars(session.provider_token)
 }
 </script>

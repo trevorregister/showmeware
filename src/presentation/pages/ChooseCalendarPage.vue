@@ -22,11 +22,9 @@
   import ConfirmButton from '../components/ConfirmButton.vue';
   import { client } from '@/application/client'
   import { useRouter } from 'vue-router'
-  import axios from 'axios'
   import { useUserStore } from '@/presentation/stores/user'
   const userStore = useUserStore()
   const router = useRouter()
-  // Sample data for calendars
   const calendars = ref([])
   
   const selectCalendar = async (calendar) => {
@@ -35,17 +33,9 @@
   }
 
   onMounted(async () => {
-    const session = await client.users.getSession()
-    userStore.setAuthToken(session.session.provider_token)
-    const authToken = userStore.getAuthToken()
-    const cals = await axios.get('https://www.googleapis.com/calendar/v3/users/me/calendarList', {
-      headers: {
-        Authorization: `Bearer ${authToken}`
-      }
-    })
-    calendars.value = cals.data.items
-    console.log(cals.data)
-
+    const token = userStore.getAuthToken()
+    const calendarList = await client.calendars.getCalendars(token)
+    calendars.value = calendarList.filter(cal => cal.accessRole === 'owner')
   })
   
   </script>
