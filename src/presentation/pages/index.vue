@@ -16,9 +16,6 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-btn @click="getCalendars">Cal</v-btn>
-    </v-row>
-    <v-row>
       <v-btn to="/choose-calendar">Choose Calendar</v-btn>
     </v-row>
   </v-container>
@@ -30,7 +27,6 @@ import BodyJournal from '../components/BodyJournal.vue'
 import { useJournalStore } from '@/presentation/stores/journal'
 import { client } from '@/application/client'
 import { useUserStore } from '@/presentation/stores/user'
-import supabase from '@/infrastructure/database/database-service'
 
 const journalStore = useJournalStore()
 const userStore = useUserStore()
@@ -53,7 +49,7 @@ onMounted(async () => {
   userStore.setUserId(user.id)
   const profile = await client.profiles.getProfileByUserId(user.id)
   userStore.setCalendarId(profile.calendar_id)
-  
+
   renderKey.value++
 })
 
