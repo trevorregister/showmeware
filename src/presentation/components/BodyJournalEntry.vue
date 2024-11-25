@@ -8,7 +8,7 @@
                         :options="EDITOR_OPTIONS"
                         theme="snow"
                         :style="EDITOR_STYLE"
-                        @update:content="updateContent"
+                        @update:content="editContent"
                     />
                     <v-card-actions>
                         <confirm-button @click="saveContent" label="Save"/>
@@ -74,7 +74,7 @@ const saveContent = () =>{
     showEditor.value = !showEditor.value
 }
 
-const updateContent = (content) => {
+const editContent = (content) => {
     editorContent.value = content
 }
 

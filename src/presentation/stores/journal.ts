@@ -14,6 +14,12 @@ export const useJournalStore = defineStore('journalStore', () => {
     journals.value.push(journal)
   }
 
+  const getJournals = async (): Promise<Journal[]> => {
+    journals.value = await client.journals.getJournals()
+    selectedJournal.value = journals.value[0] ?? null
+    return journals.value
+  }
+
   const setSelectedJournal = (journalId: string): void => {
     journals.value.forEach(j => j.circle.radius = 7)
     selectedJournal.value = journals.value.find(j => j.id === journalId) || null
@@ -26,20 +32,22 @@ export const useJournalStore = defineStore('journalStore', () => {
     selectedEntry.value = selectedJournal.value?.entries.find(e => e.id === entryId) || null
   }
 
-  const addEntry = (journalId: string): void => {
+  const addEntry = async (journalId: string): Promise<void> => {
     const journal = journals.value.find(j => j.id === journalId)
     const entry = new Entry()
     if (journal) {
       journal.entries.push(entry)
+      await client.entries.createEntry({journal_id: journalId, entry})
     }
   }
 
-  const editEntry = ({journalId, entryId, updatedEntry}: {journalId: string, entryId: string, updatedEntry: Delta}): void => {
+  const editEntry = async ({journalId, entryId, updatedEntry}: {journalId: string, entryId: string, updatedEntry: Delta}): Promise<void> => {
     const journal = journals.value.find(j => j.id === journalId)
     if (journal) {
       const entryIndex = journal.entries.findIndex(e => e.id === entryId)
       if (entryIndex !== -1) {
         journal.entries[entryIndex].content = updatedEntry
+        await client.entries.updateEntryById({entry_id: entryId, content: updatedEntry})
       }
     }
   }
@@ -70,6 +78,7 @@ export const useJournalStore = defineStore('journalStore', () => {
     selectedJournal,
     selectedEntry,
     addJournal,
+    getJournals,
     addEntry,
     editEntry,
     deleteJournal,

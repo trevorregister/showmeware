@@ -1,4 +1,5 @@
 import supabase from "../database/database-service"
+import Delta from 'quill-delta'
 
 const JournalRepo = {
     async getJournalByUserId(user_id){
@@ -22,7 +23,7 @@ const JournalRepo = {
         }
         const newEntry = {
             id: journal.entries[0].id,
-            content: journal.entries[0].content,
+            content: JSON.stringify(journal.entries[0].content),
             journal_id: journal.id,
         }
         const { data, error } = await supabase

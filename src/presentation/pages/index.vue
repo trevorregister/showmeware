@@ -39,9 +39,11 @@ const handleDeleteJournal = () => {
   renderKey.value++
 }
 
-onMounted(() => {
-  journals.value = journalStore.journals
+onMounted(async () => {
+  const retrievedJournals = await journalStore.getJournals()
+  journals.value = retrievedJournals
   selectedJournal.value = journalStore.selectedJournal
+  renderKey.value++
 })
 
 const logout = async () => {
