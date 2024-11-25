@@ -14,6 +14,7 @@
           </tr>
         </tbody>
       </v-table>
+      <confirm-button color="primary" @click="createEvent" label="Create Event" ></confirm-button>
     </v-container>
   </template>
   
@@ -30,6 +31,26 @@
   const selectCalendar = async (calendar) => {
     await client.profiles.updateCalendarId(calendar.id)
     router.push('/')
+  }
+
+  const createEvent = async () => {
+    const token = userStore.getAuthToken()
+    const event = {
+      start: {
+        dateTime: '2024-11-25T10:00:00',
+        timeZone: 'Europe/Madrid'
+      },
+      end: {
+        dateTime: '2024-11-25T11:00:00',
+        timeZone: 'Europe/Madrid'
+      },
+      summary: 'Test Event'
+    }
+    await client.calendars.createEvent({
+      token: token, 
+      calendarId: '8c5953dc51d1aa3fb8b865719d574007c547dedd3feffcda587bde9f6051732d@group.calendar.google.com', 
+      event: event
+    })
   }
 
   onMounted(async () => {

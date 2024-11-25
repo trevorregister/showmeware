@@ -10,4 +10,10 @@ export default class GCalService {
         const { data } = await axios.get(endpoints.calendar.getCalendars, this.authHeader)
         return data.items
     }
+
+    async createEvent({calendarId, event}){
+        console.log('service', calendarId, event)
+        const { data } = await axios.post(endpoints.calendar.createEvent.replace(':calendarId', calendarId), event, this.authHeader)
+        return data
+    }
 }

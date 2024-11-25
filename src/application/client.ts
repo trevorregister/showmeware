@@ -35,7 +35,8 @@ const client = {
         deleteEntryById: async(entry_id: string) => EntriesController.deleteEntryById(entry_id)
     },
     calendars: {
-        getCalendars: async(token: string) => CalendarController.getCalendars(token)
+        getCalendars: async(token: string) => CalendarController.getCalendars(token),
+        createEvent: async({token, calendarId, event}: {token: string, calendarId: string, event: object}) => CalendarController.createEvent({token, calendarId, event})
     }
 }
 
