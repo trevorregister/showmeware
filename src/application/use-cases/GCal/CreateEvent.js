@@ -1,9 +1,11 @@
 import GCalService from "../../../infrastructure/external/GCalService"
-
+import EntriesRepo from "../../../infrastructure/repositories/EntriesRepo"
 const CreateEvent = {
-    async execute({token, calendarId, event}){
+    async execute({token, calendarId, event, entryId}){
         const gCalService = new GCalService(token)
-        return gCalService.createEvent({calendarId, event})
+        const response = await gCalService.createEvent({calendarId, event})
+        await EntriesRepo.addEventIdToEntry({entry_id: entryId, event_id: response.id})
+        return response
     }
 }
 

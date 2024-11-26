@@ -3,6 +3,7 @@
         <CreateEventModal
             :modelValue="isModalOpen"
             @update:modelValue="isModalOpen = $event"
+            :entryId="props.entryId"
          />
     </div>
     <v-card class="event-display bg-white">
@@ -29,6 +30,10 @@ const props = defineProps({
     content: {
         required: true,
         type: JSON
+    },
+    entryId: {
+        required: true,
+        type: String
     }
 })
 const isModalOpen = ref(false)
@@ -47,5 +52,9 @@ const style = {
 const toggleShowEditor = () => {
     emits('toggleShowEditor')
 }
+
+onMounted(() => {
+    console.log(props.entryId)
+})
 
 </script>

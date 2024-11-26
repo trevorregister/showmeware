@@ -19,6 +19,7 @@
                     <EntryDisplay
                         :content="props.entry.content"
                         @toggleShowEditor="toggleShowEditor"
+                        :entryId="props.entry.id"
                     />
                 </v-card>
             </v-col>

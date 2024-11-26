@@ -82,6 +82,10 @@
     modelValue: {
       type: Boolean,
       required: true
+    },
+    entryId: {
+      type: String,
+      required: true
     }
   })
   
@@ -132,7 +136,8 @@
       await client.calendars.createEvent({
         token: token, 
         calendarId: calendarId, 
-        event: event
+        event: event,
+        entryId: props.entryId
       })
       closeModal()
       resetForm()
