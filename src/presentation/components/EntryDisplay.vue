@@ -53,8 +53,4 @@ const toggleShowEditor = () => {
     emits('toggleShowEditor')
 }
 
-onMounted(() => {
-    console.log(props.entryId)
-})
-
 </script>
