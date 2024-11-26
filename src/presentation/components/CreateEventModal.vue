@@ -117,7 +117,7 @@
   }
   
   const submitForm = async () => {
-    if (true) {
+    if (validateForm()) {
       const event = {
         start: {
           dateTime: `${startDate.value}T${startTime.value}:00`,

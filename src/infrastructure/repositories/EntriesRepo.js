@@ -43,6 +43,14 @@ const EntriesRepo = {
             .delete()
             .eq('id', entry_id)
         return data
+    },
+
+    async addEventIdToEntry({entry_id, event_id}){
+        const { data, error } = await supabase
+            .from('entries')
+            .update({ event_id })
+            .eq('id', entry_id)
+        return data
     }
 }
 

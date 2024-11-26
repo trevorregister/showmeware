@@ -10,7 +10,8 @@ export function journalToWeb({DbJournal, DbEntries}: {DbJournal: DbJournal, DbEn
     const { id, circle } = DbJournal
     const entries = DbEntries.map(entry => ({
         content: entry.content,
-        id: entry.id
+        id: entry.id,
+        event_id: entry.event_id
     }))
     return {
         circle: circle,
