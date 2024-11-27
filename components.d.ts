@@ -13,6 +13,7 @@ declare module 'vue' {
     BodyJournalEntry: typeof import('./src/presentation/components/BodyJournalEntry.vue')['default']
     CancelButton: typeof import('./src/presentation/components/CancelButton.vue')['default']
     ConfirmButton: typeof import('./src/presentation/components/ConfirmButton.vue')['default']
+    ConfirmModal: typeof import('./src/presentation/components/ConfirmModal.vue')['default']
     CreateEventModal: typeof import('./src/presentation/components/CreateEventModal.vue')['default']
     EntryDisplay: typeof import('./src/presentation/components/EntryDisplay.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

@@ -7,6 +7,13 @@
             :entryId="props.entry.id"
             />
         </div>
+        <div>
+        <ConfirmModal
+            v-model="isConfirmModalOpen"
+            @confirm="deleteEntry"
+            @cancel="isConfirmModalOpen = false"
+            />
+        </div>
         <v-row>
             <v-col>
                 <v-card class="bg-white" v-if="showEditor" elevation="5">
@@ -19,8 +26,8 @@
                         @blur="saveContent"
                     />
                     <v-card-actions>
-                        <confirm-button @click="openModal" label="+ Event" :disabled="props.entry.event_id"/>
-                        <cancel-button @click="deleteEntry" label='Delete'/>
+                        <v-icon icon="mdi-calendar-plus" @click="openModal" :disabled="props.entry.event_id"/>
+                        <v-icon icon="mdi-delete" @click="isConfirmModalOpen = true"/>
                     </v-card-actions>
                 </v-card>
 <!--                 <v-card class="bg-white" v-else>
@@ -42,10 +49,12 @@ import CreateEventModal from './CreateEventModal.vue'
 import ConfirmButton from './ConfirmButton.vue'
 import CancelButton from './CancelButton.vue'
 import { useJournalStore } from '@/presentation/stores/journal'
+import ConfirmModal from './ConfirmModal.vue'
 
 const editorContent = ref('')
 const showEditor = ref(true)
 const isModalOpen = ref(false)
+const isConfirmModalOpen = ref(false)
 const journalStore = useJournalStore()
 
 const props = defineProps({
