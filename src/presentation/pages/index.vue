@@ -4,7 +4,7 @@
       <v-btn to="/login" @click="logout">Logout</v-btn>
     </v-row>
     <v-row>
-      <v-col class="bg-white" style="height: 650px;">
+      <v-col class="bg-white" style="height: 650px;" align="center">
         <Body 
           :imgSrc="'/woman.jpg'" 
           :journals="journals" 
