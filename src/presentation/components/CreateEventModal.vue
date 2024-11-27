@@ -29,7 +29,7 @@
                   type="date"
                   required
                   :rules="[v => !!v || 'Start date is required']"
-                  @blur="setEndDate"
+                  @input="setEndDate"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
@@ -39,6 +39,7 @@
                   type="time"
                   required
                   :rules="[v => !!v || 'Start time is required']"
+                  @input="setEndTime(startTime)"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
@@ -106,6 +107,12 @@
 
   const setEndDate = () => {
     endDate.value = startDate.value
+  }
+
+  const setEndTime = (startTime) => {
+    const hours = startTime.split(':')[0] 
+    const minutes = startTime.split(':')[1]
+    endTime.value = `${parseInt(hours)+1}:${minutes}`
   }
   
   watch(dialog, (newValue) => {
