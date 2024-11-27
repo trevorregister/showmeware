@@ -3,7 +3,7 @@ import {
     UserController, 
     CalendarController, 
     JournalController, 
-    EntriesController } from './controllers/index'
+    EntriesController, } from './controllers/index'
 const client = {
     profiles: {
         getProfileByUserId: async (user_id: string) => ProfileController.getProfileByUserId(user_id),
@@ -22,7 +22,8 @@ const client = {
         signInWithOauth: async({provider, options = {}}: {provider: string, options: object}) => UserController.signInWithOauth({provider, options}),
         getSession: async() => UserController.getSession(),
         signOut: async() => UserController.signOut(),
-        getCalendars: async(token: string) => CalendarController.getCalendars(token)
+        getCalendars: async(token: string) => CalendarController.getCalendars(token),
+        getMyself: async() => UserController.getMyself()
     },
     journals: {
         createJournal: async(journal: object) => JournalController.createJournal(journal),
@@ -33,6 +34,10 @@ const client = {
         updateEntryById: async({entry_id, content}: {entry_id: string, content: object}) => EntriesController.updateEntryById({entry_id, content}),
         createEntry: async({journal_id, entry}: {journal_id: string, entry: object}) => EntriesController.createEntry({journal_id, entry}),
         deleteEntryById: async(entry_id: string) => EntriesController.deleteEntryById(entry_id)
+    },
+    calendars: {
+        getCalendars: async(token: string) => CalendarController.getCalendars(token),
+        createEvent: async({token, calendarId, event, entryId}: {token: string, calendarId: string, event: object, entryId: string}) => CalendarController.createEvent({token, calendarId, event, entryId})
     }
 }
 

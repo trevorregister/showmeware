@@ -25,14 +25,17 @@ const UserRepo = {
             provider: provider,
             options: options
         })
-
         return data
     },
 
     async getSession(){
-        const session = await supabase.auth.getSession()
+        const { data } = await supabase.auth.getSession()
+        return data
+    },
 
-        return session
+    async getMyself(){
+        const { data } = await supabase.auth.getUser()
+        return data
     },
 
     async getUser(){

@@ -4,5 +4,6 @@ export default interface DbEntry {
     id: String,
     content: Delta,
     created_at: Date,
-    journal_id: String
+    journal_id: String,
+    event_id: String
 }
