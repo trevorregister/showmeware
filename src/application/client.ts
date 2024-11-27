@@ -37,7 +37,8 @@ const client = {
     },
     calendars: {
         getCalendars: async(token: string) => CalendarController.getCalendars(token),
-        createEvent: async({token, calendarId, event, entryId}: {token: string, calendarId: string, event: object, entryId: string}) => CalendarController.createEvent({token, calendarId, event, entryId})
+        createEvent: async({token, calendarId, event, entryId}: {token: string, calendarId: string, event: object, entryId: string}) => CalendarController.createEvent({token, calendarId, event, entryId}),
+        getEventById: async({token, calendarId, eventId}: {token: string, calendarId: string, eventId: string}) => CalendarController.getEventById({token, calendarId, eventId})
     }
 }
 
