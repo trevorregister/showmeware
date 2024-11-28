@@ -47,6 +47,6 @@ onMounted(async () => {
 })
 
 const logout = async () => {
-  userStore.logout()
+  await userStore.logout()
 }
 </script>
