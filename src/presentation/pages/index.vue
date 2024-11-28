@@ -49,7 +49,6 @@ onMounted(async () => {
   userStore.setUserId(user.id)
   const profile = await client.profiles.getProfileByUserId(user.id)
   userStore.setCalendarId(profile.calendar_id)
-
   renderKey.value++
 })
 
