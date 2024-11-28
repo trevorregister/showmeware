@@ -47,8 +47,6 @@ onMounted(async () => {
 })
 
 const logout = async () => {
-  await client.users.signOut()
-  localStorage.setItem('authToken', '')
-  userStore.setAuthToken('')
+  userStore.logout()
 }
 </script>

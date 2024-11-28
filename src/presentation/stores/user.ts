@@ -3,9 +3,9 @@ import { ref, Ref } from 'vue'
 import { client } from '@/application/client'
 
 export const useUserStore = defineStore('userStore', () => {
-  const user_id: Ref<string | null> = ref(null)
+  const user_id: Ref<string> = ref('')
   const authToken: Ref<string> = ref('')
-  const calendar_id: Ref<string | null> = ref(null)
+  const calendar_id: Ref<string> = ref('')
   const calendars: Ref<Array<object>> = ref([])
 
   const setUserId = (id: string) => {
@@ -20,19 +20,19 @@ export const useUserStore = defineStore('userStore', () => {
     calendar_id.value = id
   }
 
-  const getCalendarId = () => {
+  const getCalendarId = (): string => {
     return calendar_id.value
   }
 
-  const getUserId = () => {
+  const getUserId = (): string => {
     return user_id.value
   }
 
-  const getAuthToken = () => {
+  const getAuthToken = (): string => {
     return authToken.value
   }
 
-  const loadCalendars = async (): Promise<any> => {
+  const loadCalendars = async (): Promise<Array<object>> => {
     const token = localStorage.getItem('authToken') ?? ''
     const calendarList = await client.calendars.getCalendars(token)
     calendars.value = calendarList.filter(calendar => calendar.accessRole === 'owner')
@@ -43,15 +43,19 @@ export const useUserStore = defineStore('userStore', () => {
     if(!localStorage.getItem('authToken') || localStorage.getItem('authToken') === ''){
       const session = await client.users.getSession()
       authToken.value = session.session.provider_token
-      const { user } = await client.users.getMyself()
-      user_id.value = user.id
-      const profile = await client.profiles.getProfileByUserId(user.id)
+      user_id.value = session.session.user.id
+      const profile = await client.profiles.getProfileByUserId(user_id.value)
       calendar_id.value = profile.calendar_id
       localStorage.setItem('authToken', authToken.value)
     } else {
       authToken.value = localStorage.getItem('authToken') ?? ''
     }
+  }
 
+  const logout = async (): Promise<any> => {
+    await client.users.signOut()
+    localStorage.setItem('authToken', '')
+    setAuthToken('')
   }
 
   return {
@@ -64,6 +68,7 @@ export const useUserStore = defineStore('userStore', () => {
     getCalendarId,
     setCalendarId,
     setAuth,
-    loadCalendars
+    loadCalendars,
+    logout
   }
 })
