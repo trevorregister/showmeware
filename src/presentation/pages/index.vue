@@ -42,17 +42,13 @@ onMounted(async () => {
   const retrievedJournals = await journalStore.getJournals()
   journals.value = retrievedJournals
   selectedJournal.value = journalStore.selectedJournal
-
-  const session = await client.users.getSession()
-  userStore.setAuthToken(session.session.provider_token)
-  const { user } = await client.users.getMyself()
-  userStore.setUserId(user.id)
-  const profile = await client.profiles.getProfileByUserId(user.id)
-  userStore.setCalendarId(profile.calendar_id)
+  await userStore.setAuth()
   renderKey.value++
 })
 
 const logout = async () => {
   await client.users.signOut()
+  localStorage.setItem('authToken', '')
+  userStore.setAuthToken('')
 }
 </script>
