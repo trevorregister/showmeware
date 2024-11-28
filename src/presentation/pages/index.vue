@@ -25,7 +25,6 @@
 import Body from '../components/Body.vue'
 import BodyJournal from '../components/BodyJournal.vue'
 import { useJournalStore } from '@/presentation/stores/journal'
-import { client } from '@/application/client'
 import { useUserStore } from '@/presentation/stores/user'
 
 const journalStore = useJournalStore()
@@ -43,6 +42,7 @@ onMounted(async () => {
   journals.value = retrievedJournals
   selectedJournal.value = journalStore.selectedJournal
   await userStore.setAuth()
+  await userStore.loadCalendars()
   renderKey.value++
 })
 

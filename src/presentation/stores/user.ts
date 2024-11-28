@@ -32,6 +32,10 @@ export const useUserStore = defineStore('userStore', () => {
     return authToken.value
   }
 
+  const getCalendars = (): Array<object> => {
+    return calendars.value
+  }
+
   const loadCalendars = async (): Promise<Array<object>> => {
     const token = localStorage.getItem('authToken') ?? ''
     const calendarList = await client.calendars.getCalendars(token)
@@ -69,6 +73,7 @@ export const useUserStore = defineStore('userStore', () => {
     setCalendarId,
     setAuth,
     loadCalendars,
-    logout
+    logout,
+    getCalendars
   }
 })
