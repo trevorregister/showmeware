@@ -1,12 +1,14 @@
 import { defineStore } from 'pinia'
 import { ref, Ref } from 'vue'
 import { client } from '@/application/client'
+import { useErrorHandler } from '../../composables/useErrorHandler'
 
 export const useUserStore = defineStore('userStore', () => {
   const user_id: Ref<string> = ref('')
   const authToken: Ref<string> = ref('')
   const calendar_id: Ref<string> = ref('')
   const calendars: Ref<Array<object>> = ref([])
+  const { handleError } = useErrorHandler()
 
   const setUserId = (id: string) => {
     user_id.value = id
@@ -37,23 +39,27 @@ export const useUserStore = defineStore('userStore', () => {
   }
 
   const loadCalendars = async (): Promise<Array<object>> => {
-    const token = localStorage.getItem('authToken') ?? ''
-    const calendarList = await client.calendars.getCalendars(token)
-    calendars.value = calendarList.filter(calendar => calendar.accessRole === 'owner')
+    try {
+      const token = localStorage.getItem('authToken') ?? ''
+      const calendarList = await client.calendars.getCalendars(token)
+      calendars.value = calendarList.filter(calendar => calendar.accessRole === 'owner')
+    } catch (err) {
+      handleError(err)
+    }
     return calendars.value
   }
 
   const setAuth = async (): Promise<any> => {
-    if(!localStorage.getItem('authToken') || localStorage.getItem('authToken') === ''){
-      const session = await client.users.getSession()
-      authToken.value = session.session.provider_token
-      user_id.value = session.session.user.id
-      const profile = await client.profiles.getProfileByUserId(user_id.value)
-      calendar_id.value = profile.calendar_id
-      localStorage.setItem('authToken', authToken.value)
-    } else {
-      authToken.value = localStorage.getItem('authToken') ?? ''
-    }
+      try {
+        const session = await client.users.getSession()
+        authToken.value = session.session.provider_token
+        user_id.value = session.session.user.id
+        const profile = await client.profiles.getProfileByUserId(user_id.value)
+        calendar_id.value = profile.calendar_id
+        localStorage.setItem('authToken', authToken.value)    
+      } catch (err) {
+        handleError(err)
+      }
   }
 
   const logout = async (): Promise<any> => {

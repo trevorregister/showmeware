@@ -16,6 +16,7 @@ declare module 'vue' {
     ConfirmModal: typeof import('./src/presentation/components/ConfirmModal.vue')['default']
     CreateEventModal: typeof import('./src/presentation/components/CreateEventModal.vue')['default']
     EntryDisplay: typeof import('./src/presentation/components/EntryDisplay.vue')['default']
+    ErrorBoundary: typeof import('./src/presentation/components/ErrorBoundary.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
