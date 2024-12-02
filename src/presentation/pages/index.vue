@@ -17,6 +17,7 @@
     </v-row>
     <v-row>
       <v-btn to="/choose-calendar">Choose Calendar</v-btn>
+      <color-picker/>
     </v-row>
   </v-container>
 </template>
@@ -26,6 +27,7 @@ import Body from '../components/Body.vue'
 import BodyJournal from '../components/BodyJournal.vue'
 import { useJournalStore } from '@/presentation/stores/journal'
 import { useUserStore } from '@/presentation/stores/user'
+import ColorPicker from '../components/ColorPicker.vue'
 
 const journalStore = useJournalStore()
 const userStore = useUserStore()
