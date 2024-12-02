@@ -40,17 +40,12 @@ const handleDeleteJournal = () => {
 }
 
 onMounted(async () => {
-  
-  try {
-    await userStore.setAuth()
-    await userStore.loadCalendars()
-    const retrievedJournals = await journalStore.getJournals()
-    journals.value = retrievedJournals
-    selectedJournal.value = journalStore.selectedJournal
-    renderKey.value++
-  } catch (err) {
-    handleError(err)
-  }
+  await userStore.setAuth()
+  await userStore.loadCalendars()
+  const retrievedJournals = await journalStore.getJournals()
+  journals.value = retrievedJournals
+  selectedJournal.value = journalStore.selectedJournal
+  renderKey.value++
 })
 
 const logout = async () => {
