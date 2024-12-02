@@ -34,9 +34,7 @@
   }
 
   onMounted(async () => {
-    const token = userStore.getAuthToken()
-    const calendarList = await client.calendars.getCalendars(token)
-    calendars.value = calendarList.filter(cal => cal.accessRole === 'owner')
+    calendars.value = await userStore.loadCalendars()
   })
   
   </script>

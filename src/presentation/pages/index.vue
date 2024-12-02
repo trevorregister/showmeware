@@ -25,7 +25,6 @@
 import Body from '../components/Body.vue'
 import BodyJournal from '../components/BodyJournal.vue'
 import { useJournalStore } from '@/presentation/stores/journal'
-import { client } from '@/application/client'
 import { useUserStore } from '@/presentation/stores/user'
 
 const journalStore = useJournalStore()
@@ -39,20 +38,15 @@ const handleDeleteJournal = () => {
 }
 
 onMounted(async () => {
+  await userStore.setAuth()
+  await userStore.loadCalendars()
   const retrievedJournals = await journalStore.getJournals()
   journals.value = retrievedJournals
   selectedJournal.value = journalStore.selectedJournal
-
-  const session = await client.users.getSession()
-  userStore.setAuthToken(session.session.provider_token)
-  const { user } = await client.users.getMyself()
-  userStore.setUserId(user.id)
-  const profile = await client.profiles.getProfileByUserId(user.id)
-  userStore.setCalendarId(profile.calendar_id)
   renderKey.value++
 })
 
 const logout = async () => {
-  await client.users.signOut()
+  await userStore.logout()
 }
 </script>
