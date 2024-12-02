@@ -26,24 +26,31 @@ import Body from '../components/Body.vue'
 import BodyJournal from '../components/BodyJournal.vue'
 import { useJournalStore } from '@/presentation/stores/journal'
 import { useUserStore } from '@/presentation/stores/user'
+import { useErrorHandler } from '../../composables/useErrorHandler'
 
 const journalStore = useJournalStore()
 const userStore = useUserStore()
 const journals = ref([])
 const selectedJournal = ref(null)
 const renderKey = ref(0)
+const { handleError } = useErrorHandler()
 
 const handleDeleteJournal = () => {
   renderKey.value++
 }
 
 onMounted(async () => {
-  const retrievedJournals = await journalStore.getJournals()
-  journals.value = retrievedJournals
-  selectedJournal.value = journalStore.selectedJournal
-  await userStore.setAuth()
-  await userStore.loadCalendars()
-  renderKey.value++
+  
+  try {
+    await userStore.setAuth()
+    await userStore.loadCalendars()
+    const retrievedJournals = await journalStore.getJournals()
+    journals.value = retrievedJournals
+    selectedJournal.value = journalStore.selectedJournal
+    renderKey.value++
+  } catch (err) {
+    handleError(err)
+  }
 })
 
 const logout = async () => {
