@@ -21,7 +21,7 @@
             },
             fill: {
                 type: String,
-                default: 'green'
+                default: '#008000'
             },
             strokeWidth: {
                 type: Number,

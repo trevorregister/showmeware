@@ -7,7 +7,8 @@
                         <ColorPicker
                         :journal="journal"
                         @change-color="handleChangeColor"
-                            />
+                        :key="renderKey"
+                        />
                     </div>
                 </v-expansion-panel-text>
             </v-expansion-panel>
@@ -26,6 +27,7 @@ const props = defineProps({
 })
 
 const journalStore = useJournalStore()
+const renderKey = ref(0)
 
 const handleChangeColor = (color, journal) => {
     journalStore.changeColor({
@@ -33,6 +35,14 @@ const handleChangeColor = (color, journal) => {
         newColor: color
     })
 }
+
+watch( 
+    () => props.journal,
+    () => {
+        renderKey.value++
+    }
+
+)
 </script>
 <style>
 .color-picker {

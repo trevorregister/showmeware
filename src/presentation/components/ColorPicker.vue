@@ -44,31 +44,8 @@ const changeColor = () => {
     emits('changeColor', color.value, props.journal)
 }
 
-function toHex(colorName) { //remove after converting journal circles to hex
-    switch (colorName.toLowerCase()) {
-        case 'red':
-            return RED
-        case 'orange':
-            return ORANGE
-        case 'yellow':
-            return YELLOW
-        case 'green':
-            return GREEN
-        case 'blue':
-            return BLUE
-        case 'indigo':
-            return INDIGO
-        case 'violet':
-            return VIOLET
-        default:
-            return "Invalid color name"
-    }
-}
-
 onMounted( () => {
-    console.log('before', color.value)
-    color.value = toHex(props.journal.circle.fill)
-    console.log('after', color.value)
+    color.value = props.journal.circle.fill
 
 })
 </script>
