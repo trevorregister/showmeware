@@ -34,7 +34,7 @@ export default class Journal implements IJournal {
             x,
             y,
             radius: 13,
-            fill: 'green',
+            fill: '#008000',
             stroke: 'black',
             strokeWidth: 2,
         },

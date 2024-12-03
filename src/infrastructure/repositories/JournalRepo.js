@@ -55,17 +55,12 @@ const JournalRepo = {
         return data
     },
 
-    async changeColor({journal_id, newColor}){
+    async changeColor({journal, newColor}){
+        journal.circle.fill = newColor
         const { data, error } = await supabase
             .from('journals')
-            .update({
-                circle: supabase.rpc('jsonb_set', {
-                    jsonb: 'circle',
-                    path: '{fill}',
-                    value: JSON.stringify(newColor),
-                    create_missing: true
-                })})
-            .eq('id', journal_id)
+            .update({circle: journal.circle})
+            .eq('id', journal.id)
         return data
     }
 }

@@ -15,8 +15,8 @@ const JournalController = {
     async deleteJournalById(journal_id){
         return await DeleteJournalById.execute(journal_id)
     },
-    async changeColor({journal_id, newColor}){
-        return await ChangeColor.execute({journal_id, newColor}) 
+    async changeColor({journal, newColor}){
+        return await ChangeColor.execute({journal, newColor}) 
     }
 }
 
