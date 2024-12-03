@@ -1,32 +1,43 @@
 <template>
-    <v-color-picker
-        hide-canvas
-        hide-sliders
-        hide-inputs
-        show-swatches
-        :swatches=swatches
-        v-model="color"
-        @click="changeColor"
-        width="404px"
-    />
+    <v-row>
+        <v-col>
+            {{journal.id}}
+        </v-col>
+    </v-row>
+    <v-row>
+        <v-col>
+            <v-color-picker
+                hide-canvas
+                hide-sliders
+                hide-inputs
+                show-swatches
+                :swatches=SWATCHES
+                v-model="color"
+                @click="changeColor"
+                width="100%"
+                elevation="0"
+            />
+    </v-col>
+    </v-row>
 </template>
 <script setup>
+
 const color = ref('')
-const red = "#FF0000"
-const orange = "#FFA500"
-const yellow = "#FFFF00"
-const green = "#008000"
-const blue = "#0000FF"
-const indigo = "#4B0082"
-const violet = "#EE82EE"
 
-/* const swatches =  [
-    [red, green],
-    [orange, blue],
-    [yellow, indigo]
-] */
+const RED = "#FF0000"
+const ORANGE = "#FFA500"
+const YELLOW = "#FFFF00"
+const GREEN = "#008000"
+const BLUE = "#0000FF"
+const INDIGO = "#4B0082"
+const VIOLET = "#EE82EE"
+const SWATCHES = [[RED], [GREEN], [ORANGE], [BLUE], [YELLOW], [INDIGO]]
 
-const swatches = [[red], [green], [orange], [blue], [yellow], [indigo]]
+const props = defineProps({
+    journal: {
+        required: true
+    }
+})
 const emits = defineEmits(['changeColor'])
 
 const changeColor = () => {

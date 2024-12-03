@@ -5,6 +5,7 @@
                 <v-expansion-panel-text>
                     <div class="color-picker">
                         <ColorPicker
+                        :journal="journal"
                         @change-color="handleChangeColor"
                             />
                     </div>
@@ -30,8 +31,8 @@ const handleChangeColor = (color) => {
 <style>
 .color-picker {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center; 
-    align-items: center;  
 }
 .settings-panel {
     display: flex;
