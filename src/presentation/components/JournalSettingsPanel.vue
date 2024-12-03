@@ -29,7 +29,7 @@ const journalStore = useJournalStore()
 
 const handleChangeColor = (color, journalId) => {
     journalStore.changeColor({
-        journalId: journalId, 
+        journal_id: journalId, 
         newColor: color
     })
 }

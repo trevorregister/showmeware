@@ -1,6 +1,6 @@
 <template>
     <v-row justify="center">
-        <JournalSettingsPanel :journal="journal"/>
+        <JournalSettingsPanel :journal="journal" v-if="journal? true: false"/>
     </v-row>
     <v-row v-for="entry in journal?.entries ?? []">
         <BodyJournalEntry 

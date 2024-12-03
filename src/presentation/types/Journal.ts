@@ -11,14 +11,14 @@ interface ICircle{
 }
 
 interface IJournal {
-    id: String,
+    id: string,
     circle: ICircle,
     entries: Array<Entry>
 }
 
 
 export default class Journal implements IJournal {
-    id: String
+    id: string
     circle: ICircle
     entries: Array<Entry>
 
