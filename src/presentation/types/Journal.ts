@@ -5,7 +5,7 @@ interface ICircle{
     x: Number,
     y: Number,
     radius: Number,
-    fill: 'green',
+    fill: string,
     stroke: 'black',
     strokeWidth: 2,
 }

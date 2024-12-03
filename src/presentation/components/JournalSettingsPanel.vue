@@ -17,6 +17,7 @@
 
 <script setup>
 import ColorPicker from './ColorPicker.vue'
+import { useJournalStore } from '../stores/journal'
 
 const props = defineProps({
     journal: {
@@ -24,8 +25,13 @@ const props = defineProps({
     }
 })
 
+const journalStore = useJournalStore()
+
 const handleChangeColor = (color, journalId) => {
-    console.log(color, journalId)
+    journalStore.changeColor({
+        journalId: journalId, 
+        newColor: color
+    })
 }
 </script>
 <style>
