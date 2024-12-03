@@ -41,7 +41,7 @@ const props = defineProps({
 const emits = defineEmits(['changeColor'])
 
 const changeColor = () => {
-    emits('changeColor', color.value, props.journal.id)
+    emits('changeColor', color.value, props.journal)
 }
 
 function toHex(colorName) { //remove after converting journal circles to hex

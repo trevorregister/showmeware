@@ -1,3 +1,4 @@
+import { Journal } from '@/presentation/types'
 import { 
     ProfileController, 
     UserController, 
@@ -29,7 +30,7 @@ const client = {
         createJournal: async(journal: object) => JournalController.createJournal(journal),
         getJournals: async() => JournalController.getJournals(),
         deleteJournalById: async(journal_id: string) => JournalController.deleteJournalById(journal_id),
-        changeColor: async({journal_id, newColor}: {journal_id: string, newColor: string}) => JournalController.changeColor({journal_id, newColor})
+        changeColor: async({journal, newColor}: {journal: Journal, newColor: string}) => JournalController.changeColor({journal, newColor})
     },
     entries: {
         updateEntryById: async({entry_id, content}: {entry_id: string, content: object}) => EntriesController.updateEntryById({entry_id, content}),

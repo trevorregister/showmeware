@@ -27,9 +27,9 @@ const props = defineProps({
 
 const journalStore = useJournalStore()
 
-const handleChangeColor = (color, journalId) => {
+const handleChangeColor = (color, journal) => {
     journalStore.changeColor({
-        journal_id: journalId, 
+        journal: journal, 
         newColor: color
     })
 }

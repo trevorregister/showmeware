@@ -62,7 +62,7 @@ const JournalRepo = {
                 circle: supabase.rpc('jsonb_set', {
                     jsonb: 'circle',
                     path: '{fill}',
-                    value: JSON.stringify(newFillValue),
+                    value: JSON.stringify(newColor),
                     create_missing: true
                 })})
             .eq('id', journal_id)
