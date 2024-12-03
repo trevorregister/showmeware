@@ -18,6 +18,7 @@ declare module 'vue' {
     CreateEventModal: typeof import('./src/presentation/components/CreateEventModal.vue')['default']
     EntryDisplay: typeof import('./src/presentation/components/EntryDisplay.vue')['default']
     ErrorBoundary: typeof import('./src/presentation/components/ErrorBoundary.vue')['default']
+    JournalSettingsPanel: typeof import('./src/presentation/components/JournalSettingsPanel.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

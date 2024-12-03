@@ -1,4 +1,7 @@
 <template>
+    <v-row justify="center">
+        <JournalSettingsPanel :journal="journal"/>
+    </v-row>
     <v-row v-for="entry in journal?.entries ?? []">
         <BodyJournalEntry 
             :journalId="journal.id"
@@ -20,6 +23,7 @@
 </template>
 <script setup>
 import BodyJournalEntry from './BodyJournalEntry.vue'
+import JournalSettingsPanel from './JournalSettingsPanel.vue'
 import { useJournalStore } from '@/presentation/stores/journal'
 
 const journalStore = useJournalStore()
