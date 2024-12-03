@@ -2,9 +2,9 @@ import Entry from './Entry'
 import { generateId } from "@/utils"
 
 interface ICircle{
-    x: Number,
-    y: Number,
-    radius: Number,
+    x: number,
+    y: number,
+    radius: number,
     fill: string,
     stroke: 'black',
     strokeWidth: 2,
@@ -26,8 +26,8 @@ export default class Journal implements IJournal {
         x,
         y,
     }: {
-        x: Number,
-        y: Number
+        x: number,
+        y: number
     }){
         this.id = generateId(),
         this.circle = {
