@@ -24,8 +24,8 @@ const props = defineProps({
     }
 })
 
-const handleChangeColor = (color) => {
-    console.log(color)
+const handleChangeColor = (color, journalId) => {
+    console.log(color, journalId)
 }
 </script>
 <style>
