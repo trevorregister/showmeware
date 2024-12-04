@@ -27,6 +27,7 @@
                     />
                     <v-card-actions>
                         <v-icon icon="mdi-calendar-plus" @click="openModal" :disabled="props.entry.event_id? true: false"/>
+                        <v-icon icon="mdi-content-save" @click="saveContent"/>
                         <v-icon icon="mdi-delete" @click="isConfirmModalOpen = true"/>
                         <div class="loader" v-if="isLoading"></div>
                     </v-card-actions>
