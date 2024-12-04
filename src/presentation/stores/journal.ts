@@ -22,6 +22,21 @@ export const useJournalStore = defineStore('journalStore', () => {
     }
   }
 
+  const changeColor = async ({journal, newColor}: {journal: Journal, newColor: string}): Promise<void> => {
+    const journalToUpdate = journals.value.find(j => j.id === journal.id)
+    if (journalToUpdate) {
+      try {
+        await client.journals.changeColor({
+          journal: journal,
+          newColor: newColor
+        })
+        journal.circle.fill = newColor
+      } catch (err) {
+        handleError(err)
+      }
+    }
+  }
+
   const getJournals = async (): Promise<Journal[]> => {
     try {
       journals.value = await client.journals.getJournals()
@@ -116,6 +131,7 @@ export const useJournalStore = defineStore('journalStore', () => {
     getJournalById,
     getEntriesByJournalId,
     setSelectedJournal,
-    setSelectedEntry
+    setSelectedEntry,
+    changeColor
   }
 })

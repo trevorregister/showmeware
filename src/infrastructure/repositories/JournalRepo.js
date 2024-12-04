@@ -1,5 +1,4 @@
 import supabase from "../database/database-service"
-import Delta from 'quill-delta'
 
 const JournalRepo = {
     async getJournalByUserId(user_id){
@@ -53,6 +52,15 @@ const JournalRepo = {
             .delete()
             .eq('journal_id', journal_id)
 
+        return data
+    },
+
+    async changeColor({journal, newColor}){
+        journal.circle.fill = newColor
+        const { data, error } = await supabase
+            .from('journals')
+            .update({circle: journal.circle})
+            .eq('id', journal.id)
         return data
     }
 }

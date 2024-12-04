@@ -2,12 +2,12 @@ import Delta from 'quill-delta'
 import { generateId } from '@/utils'
 
 interface IEntry {
-    id: String,
+    id: string,
     content: Delta
 }
 
 export default class Entry implements IEntry {
-    id: String;
+    id: string;
     content: Delta
 
     constructor() {

@@ -99,10 +99,14 @@ onMounted(() => {
   setImage()
   updateStageDimensions()
   window.addEventListener('resize', updateStageDimensions)
+
+  nextTick(() => {
+    journalStore.setSelectedJournal(journals.value[0].id)
+  })
+  
   return () => {
     window.removeEventListener('resize', updateStageDimensions)
-  }
-  
+  }  
   
 })
 </script>

@@ -1,9 +1,9 @@
 import Delta from 'quill-delta'
 
 export default interface DbEntry {
-    id: String,
+    id: string,
     content: Delta,
     created_at: Date,
-    journal_id: String,
-    event_id: String
+    journal_id: string,
+    event_id: string
 }
