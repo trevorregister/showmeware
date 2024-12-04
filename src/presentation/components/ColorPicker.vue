@@ -1,11 +1,6 @@
 <template>
     <v-row>
         <v-col>
-            {{journal.id}}
-        </v-col>
-    </v-row>
-    <v-row>
-        <v-col>
             <v-color-picker
                 hide-canvas
                 hide-sliders
@@ -17,7 +12,7 @@
                 width="100%"
                 elevation="0"
             />
-    </v-col>
+        </v-col>
     </v-row>
 </template>
 <script setup>

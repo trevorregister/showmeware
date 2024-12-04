@@ -3,6 +3,11 @@
         <v-expansion-panels>
             <v-expansion-panel title="Journal Settings" elevation="5">
                 <v-expansion-panel-text>
+                    <v-row>
+                        <v-col align="center">
+                            {{ journal.id }}
+                        </v-col>
+                    </v-row>
                     <div class="color-picker">
                         <ColorPicker
                         :journal="journal"
