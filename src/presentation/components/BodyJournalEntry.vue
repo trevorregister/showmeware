@@ -24,14 +24,15 @@
                         :style="EDITOR_STYLE"
                         @update:content="editContent"
                         @blur="saveContent"
+                        @textChange="enableSave"
                     />
                     <v-card-actions>
                         <v-icon icon="mdi-calendar-plus" @click="openModal" :disabled="props.entry.event_id? true: false"/>
-                        <v-icon icon="mdi-content-save" @click="saveContent"/>
+                        <v-icon icon="mdi-content-save" @click="saveContent" :disabled="saveDisabled"/>
                         <div style="display: flex; margin-left: auto;">
                             <v-icon icon="mdi-delete" @click="isConfirmModalOpen = true"/>
                         </div>
-                        <div class="loader" v-if="isLoading"></div>
+<!--                         <div class="loader" v-if="isLoading"></div> -->
                     </v-card-actions>
                 </v-card>
 <!--                 <v-card class="bg-white" v-else>
@@ -50,8 +51,6 @@ import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import EntryDisplay from './EntryDisplay.vue'
 import CreateEventModal from './CreateEventModal.vue'
-import ConfirmButton from './ConfirmButton.vue'
-import CancelButton from './CancelButton.vue'
 import { useJournalStore } from '@/presentation/stores/journal'
 import ConfirmModal from './ConfirmModal.vue'
 
@@ -61,6 +60,7 @@ const isModalOpen = ref(false)
 const isConfirmModalOpen = ref(false)
 const journalStore = useJournalStore()
 const isLoading = ref(false)
+const saveDisabled = ref(false)
 
 const props = defineProps({
     journalId: {
@@ -93,12 +93,13 @@ const EDITOR_STYLE = {
 const saveContent = async () =>{
     isLoading.value = true
     await journalStore.editEntry({
-        journalId: props.journalId, 
-        entryId: props.entry.id, 
+        journalId: props.journalId,
+        entryId: props.entry.id,
         updatedEntry: editorContent.value
     })
     isLoading.value = false
     //showEditor.value = !showEditor.value
+    saveDisabled.value = true
 }
 const openModal = () => {
     isModalOpen.value = true
@@ -106,10 +107,13 @@ const openModal = () => {
 const editContent = (content) => {
     editorContent.value = content
 }
+const enableSave = () => {
+  saveDisabled.value = false
+}
 
 const deleteEntry = () => {
     journalStore.deleteEntry({
-        journalId: props.journalId, 
+        journalId: props.journalId,
         entryId: props.entry.id
     })
 }
@@ -123,7 +127,7 @@ onMounted(() => {
 })
 
 </script>
-  
+
 <style scoped>
 .loader {
   width: 15px;

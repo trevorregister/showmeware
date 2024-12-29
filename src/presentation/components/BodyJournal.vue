@@ -3,22 +3,21 @@
         <JournalSettingsPanel :journal="journal" v-if="journal? true: false"/>
     </v-row>
     <v-row v-for="entry in journal?.entries ?? []">
-        <BodyJournalEntry 
+        <BodyJournalEntry
             :journalId="journal.id"
             :entry="entry"
         />
     </v-row>
-    <v-row justify="center" v-if="journal?.entries">
-          <ConfirmButton
-            label="Add Entry"
-            @click="addEntry"
-          />
-    </v-row>
     <v-row justify="center" v-if="journal?.entries.length === 0">
-        <CancelButton 
-            @click="deleteJournal" 
-            label="Delete Journal" 
+        <CancelButton
+          @click="deleteJournal"
+          label="Delete Journal"
         />
+    </v-row>
+    <v-row justify="center" v-if="journal?.entries">
+          <v-btn class="bg-accent" @click="addEntry">
+            <v-icon icon="mdi-note-plus"></v-icon>
+          </v-btn>
     </v-row>
 </template>
 <script setup>
@@ -42,3 +41,8 @@ const deleteJournal = () => {
 }
 
 </script>
+<style>
+button {
+  margin-top: 0.5rem;
+}
+</style>

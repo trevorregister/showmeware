@@ -4,10 +4,10 @@
       <v-btn to="/login" @click="logout">Logout</v-btn>
     </v-row>
     <v-row>
-      <v-col class="bg-white" style="height: 650px;" align="center">
-        <Body 
-          :imgSrc="'/woman.jpg'" 
-          :journals="journals" 
+      <v-col class="body-container bg-white" align="center">
+        <Body
+          :imgSrc="'/body-outline.jpeg'"
+          :journals="journals"
           :key="renderKey"
         />
       </v-col>
@@ -50,3 +50,9 @@ const logout = async () => {
   await userStore.logout()
 }
 </script>
+<style>
+.body-container {
+  border-radius: 5px;
+  height: 650px;
+}
+</style>
