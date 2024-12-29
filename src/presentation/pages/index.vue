@@ -39,7 +39,6 @@ const handleDeleteJournal = () => {
 
 onMounted(async () => {
   await userStore.setAuth()
-  await userStore.loadCalendars()
   const retrievedJournals = await journalStore.getJournals()
   journals.value = retrievedJournals
   selectedJournal.value = journalStore.selectedJournal
