@@ -4,7 +4,7 @@ const CreateEvent = {
     async execute({token, calendarId, event, entryId}){
         const gCalService = new GCalService(token)
         const response = await gCalService.createEvent({calendarId, event})
-        await EntriesRepo.addEventIdToEntry({entry_id: entryId, event_id: response.id})
+        await EntriesRepo.addEventToEntry({entry_id: entryId, event: response})
         return response
     }
 }
