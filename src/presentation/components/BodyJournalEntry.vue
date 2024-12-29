@@ -11,6 +11,7 @@
         <ConfirmModal
             v-model="isConfirmModalOpen"
             @confirm="deleteEntry"
+            @deleteEvent="deleteEvent"
             @cancel="isConfirmModalOpen = false"
             />
         </div>
@@ -27,12 +28,23 @@
                         @textChange="enableSave"
                     />
                     <v-card-actions>
-                        <v-icon icon="mdi-calendar-plus" @click="openModal" :disabled="props.entry.event_id? true: false"/>
+                        <v-icon icon="mdi-calendar-plus" @click="openModal" :disabled="props.entry.event? true: false"/>
                         <v-icon icon="mdi-content-save" @click="saveContent" :disabled="saveDisabled"/>
                         <div style="display: flex; margin-left: auto;">
                             <v-icon icon="mdi-delete" @click="isConfirmModalOpen = true"/>
                         </div>
 <!--                         <div class="loader" v-if="isLoading"></div> -->
+                    </v-card-actions>
+                    <v-card-actions v-if="props.entry.event">
+                      <div>
+                        {{ props.entry.event?.summary ?? '' }}
+                      </div>
+                      <div>
+                        {{ formatEventDate(props.entry.event?.start.dateTime) }}
+                      </div>
+                      <div>
+                        <a :href="props.entry.event?.htmlLink" target="_blank"><v-icon class=nav-icon icon="mdi-navigation"/></a>
+                      </div>
                     </v-card-actions>
                 </v-card>
 <!--                 <v-card class="bg-white" v-else>
@@ -52,13 +64,17 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import EntryDisplay from './EntryDisplay.vue'
 import CreateEventModal from './CreateEventModal.vue'
 import { useJournalStore } from '@/presentation/stores/journal'
+import { useUserStore } from '../stores/user'
+import { formatEventDate } from '@/utils'
 import ConfirmModal from './ConfirmModal.vue'
+import { client } from '@/application/client'
 
 const editorContent = ref('')
 const showEditor = ref(true)
 const isModalOpen = ref(false)
 const isConfirmModalOpen = ref(false)
 const journalStore = useJournalStore()
+const userStore = useUserStore()
 const isLoading = ref(false)
 const saveDisabled = ref(false)
 
@@ -110,6 +126,13 @@ const editContent = (content) => {
 const enableSave = () => {
   saveDisabled.value = false
 }
+const deleteEvent = () => {
+  const calendarId = userStore.getCalendarId()
+  userStore.deleteEventById({
+    calendarId: calendarId,
+    eventId: props.entry.event.id
+  })
+}
 
 const deleteEntry = () => {
     journalStore.deleteEntry({
@@ -120,6 +143,10 @@ const deleteEntry = () => {
 
 const toggleShowEditor = () => {
     showEditor.value = !showEditor.value
+}
+
+const eventUrl = () => {
+  return `https://calendar.google.com/calendar/u/0/r/eventedit/${props.entry.event.id}`
 }
 
 onMounted(() => {
@@ -155,5 +182,15 @@ onMounted(() => {
 }
 @keyframes l6{
   100% {transform:rotate(1turn)}
+}
+.nav-icon{
+  transform: rotate(90deg);
+}
+.nav-icon:hover{
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+  color: black
 }
 </style>

@@ -49,6 +49,19 @@ export const useUserStore = defineStore('userStore', () => {
     return calendars.value
   }
 
+  const deleteEventById = async ({calendarId, eventId}: {calendarId: string, eventId: string}): Promise<void> => {
+    try {
+      const token = localStorage.getItem('authToken') ?? ''
+      await client.calendars.deleteEventById({
+        token: token,
+        eventId: eventId,
+        calendarId: calendarId
+      })
+    } catch (err) {
+      handleError(err)
+    }
+  }
+
   const setAuth = async (): Promise<any> => {
       try {
         const session = await client.users.getSession()
@@ -56,7 +69,7 @@ export const useUserStore = defineStore('userStore', () => {
         user_id.value = session.session.user.id
         const profile = await client.profiles.getProfileByUserId(user_id.value)
         calendar_id.value = profile.calendar_id
-        localStorage.setItem('authToken', authToken.value)    
+        localStorage.setItem('authToken', authToken.value)
       } catch (err) {
         handleError(err)
       }
@@ -80,6 +93,7 @@ export const useUserStore = defineStore('userStore', () => {
     setAuth,
     loadCalendars,
     logout,
-    getCalendars
+    getCalendars,
+    deleteEventById
   }
 })

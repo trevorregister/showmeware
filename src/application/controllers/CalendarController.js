@@ -1,4 +1,4 @@
-import { GetCalendars, CreateEvent, GetEventById, GetEvents } from '../use-cases/GCal/index'
+import { GetCalendars, CreateEvent, GetEventById, GetEvents, DeleteEventById } from '../use-cases/GCal/index'
 
 const CalendarController = {
     async getCalendars(token) {
@@ -12,7 +12,10 @@ const CalendarController = {
     },
     async getEvents({token, calendarId}){
         return await GetEvents.execute({token, calendarId})
-    }
+    },
+    async deleEventById({token, calendarId, eventId}){
+      return await DeleteEventById.execute({token, calendarId, eventId})
+    },
 }
 
 export default CalendarController

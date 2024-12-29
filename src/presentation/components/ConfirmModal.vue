@@ -7,6 +7,12 @@
         <v-card-text>
           {{ message }}
         </v-card-text>
+        <div style="display: flex; margin-left: 0.75rem;">
+          <v-checkbox
+            label="Delete calendar event"
+            v-model="deleteEvent"
+            />
+        </div>
         <v-card-actions>
           <v-spacer></v-spacer>
           <cancel-button @click="onCancel" :label="cancelText"/>
@@ -15,10 +21,12 @@
       </v-card>
     </v-dialog>
   </template>
-  
+
   <script setup>
   import { ref, watch, defineProps, defineEmits } from 'vue'
-  
+
+  const deleteEvent = ref(false)
+
   const props = defineProps({
     modelValue: {
       type: Boolean,
@@ -41,32 +49,34 @@
       default: 'Cancel'
     }
   })
-  
-  const emit = defineEmits(['update:modelValue', 'confirm', 'cancel'])
-  
+
+  const emit = defineEmits(['update:modelValue', 'confirm', 'cancel', 'deleteEvent'])
+
   const dialog = ref(props.modelValue)
-  
+
   watch(() => props.modelValue, (newValue) => {
     dialog.value = newValue
   })
-  
+
   watch(dialog, (newValue) => {
     emit('update:modelValue', newValue)
   })
-  
+
   const onConfirm = () => {
     emit('confirm')
+    if(deleteEvent.value){
+      emit('deleteEvent')
+    }
     closeModal()
   }
-  
+
   const onCancel = () => {
     emit('cancel')
     closeModal()
   }
-  
+
   const closeModal = () => {
     emit('update:modelValue', false)
   }
   </script>
-  
-  
+

@@ -3,7 +3,8 @@ import { generateId } from '@/utils'
 
 interface IEntry {
     id: string,
-    content: Delta
+    content: Delta,
+    event?: object
 }
 
 export default class Entry implements IEntry {

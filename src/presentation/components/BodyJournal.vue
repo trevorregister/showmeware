@@ -9,15 +9,18 @@
         />
     </v-row>
     <v-row justify="center" v-if="journal?.entries.length === 0">
-        <CancelButton
+      <v-btn class="bg-error">
+        <v-icon
+          icon="mdi-book-cancel-outline"
           @click="deleteJournal"
           label="Delete Journal"
         />
+      </v-btn>
     </v-row>
-    <v-row justify="center" v-if="journal?.entries">
-          <v-btn class="bg-accent" @click="addEntry">
-            <v-icon icon="mdi-note-plus"></v-icon>
-          </v-btn>
+    <v-row justify="center">
+      <v-btn class="bg-accent" @click="addEntry">
+        <v-icon icon="mdi-note-plus"></v-icon>
+      </v-btn>
     </v-row>
 </template>
 <script setup>
@@ -43,6 +46,6 @@ const deleteJournal = () => {
 </script>
 <style>
 button {
-  margin-top: 0.5rem;
+  margin: 0.25rem;
 }
 </style>

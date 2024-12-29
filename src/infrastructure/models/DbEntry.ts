@@ -5,5 +5,5 @@ export default interface DbEntry {
     content: Delta,
     created_at: Date,
     journal_id: string,
-    event_id: string
+    event: object
 }

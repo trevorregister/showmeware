@@ -24,6 +24,12 @@ export default class GCalService {
         return data
     }
 
+    async deleteEventById({calendarId, eventId}){
+      const request = endpoints.calendar.getEventById.replace(':calendarId', calendarId).replace(':eventId', eventId)
+      const { data } = await axios.delete(request, this.authHeader)
+      return data
+  }
+
     async getEvents(calendarId){
         const request = endpoints.calendar.createEvent.replace(':calendarId', calendarId)
         const { data: { items } } = await axios.get(request, this.authHeader)

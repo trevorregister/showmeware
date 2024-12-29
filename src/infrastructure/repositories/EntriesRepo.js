@@ -16,10 +16,10 @@ const EntriesRepo = {
             .eq('id', entry_id)
         return data
     },
-    async addEventIdToEntry({entry_id, event_id}){
+    async addEventToEntry({entry_id, event}){
         const { data, error } = await supabase
             .from('entries')
-            .update({ event_id })
+            .update({ event })
             .eq('id', entry_id)
         return data
     },
@@ -44,14 +44,6 @@ const EntriesRepo = {
             .eq('id', entry_id)
         return data
     },
-
-    async addEventIdToEntry({entry_id, event_id}){
-        const { data, error } = await supabase
-            .from('entries')
-            .update({ event_id })
-            .eq('id', entry_id)
-        return data
-    }
 }
 
 export default EntriesRepo
