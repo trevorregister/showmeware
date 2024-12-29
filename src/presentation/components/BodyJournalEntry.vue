@@ -27,12 +27,23 @@
                         @textChange="enableSave"
                     />
                     <v-card-actions>
-                        <v-icon icon="mdi-calendar-plus" @click="openModal" :disabled="props.entry.event_id? true: false"/>
+                        <v-icon icon="mdi-calendar-plus" @click="openModal" :disabled="props.entry.event? true: false"/>
                         <v-icon icon="mdi-content-save" @click="saveContent" :disabled="saveDisabled"/>
                         <div style="display: flex; margin-left: auto;">
                             <v-icon icon="mdi-delete" @click="isConfirmModalOpen = true"/>
                         </div>
 <!--                         <div class="loader" v-if="isLoading"></div> -->
+                    </v-card-actions>
+                    <v-card-actions v-if="props.entry.event">
+                      <div>
+                        {{ props.entry.event?.summary ?? '' }}
+                      </div>
+                      <div>
+                        {{ formatEventDate(props.entry.event?.start.dateTime) }}
+                      </div>
+                      <div>
+                        <a :href="props.entry.event?.htmlLink" target="_blank"><v-icon class=nav-icon icon="mdi-navigation"/></a>
+                      </div>
                     </v-card-actions>
                 </v-card>
 <!--                 <v-card class="bg-white" v-else>
@@ -52,6 +63,7 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import EntryDisplay from './EntryDisplay.vue'
 import CreateEventModal from './CreateEventModal.vue'
 import { useJournalStore } from '@/presentation/stores/journal'
+import { formatEventDate } from '@/utils'
 import ConfirmModal from './ConfirmModal.vue'
 
 const editorContent = ref('')
@@ -122,6 +134,10 @@ const toggleShowEditor = () => {
     showEditor.value = !showEditor.value
 }
 
+const eventUrl = () => {
+  return `https://calendar.google.com/calendar/u/0/r/eventedit/${props.entry.event.id}`
+}
+
 onMounted(() => {
     editorContent.value = props.entry.content
 })
@@ -155,5 +171,15 @@ onMounted(() => {
 }
 @keyframes l6{
   100% {transform:rotate(1turn)}
+}
+.nav-icon{
+  transform: rotate(90deg);
+}
+.nav-icon:hover{
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+  color: black
 }
 </style>
