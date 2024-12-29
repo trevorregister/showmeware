@@ -9,15 +9,17 @@
         />
     </v-row>
     <v-row justify="center" v-if="journal?.entries.length === 0">
-      <v-btn class="bg-accent" @click="addEntry">
-        <v-icon icon="mdi-note-plus"></v-icon>
-      </v-btn>
       <v-btn class="bg-error">
         <v-icon
           icon="mdi-book-cancel-outline"
           @click="deleteJournal"
           label="Delete Journal"
         />
+      </v-btn>
+    </v-row>
+    <v-row justify="center">
+      <v-btn class="bg-accent" @click="addEntry">
+        <v-icon icon="mdi-note-plus"></v-icon>
       </v-btn>
     </v-row>
 </template>
