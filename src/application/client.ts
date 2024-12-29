@@ -1,9 +1,9 @@
 import { Journal } from '@/presentation/types'
-import { 
-    ProfileController, 
-    UserController, 
-    CalendarController, 
-    JournalController, 
+import {
+    ProfileController,
+    UserController,
+    CalendarController,
+    JournalController,
     EntriesController, } from './controllers/index'
 const client = {
     profiles: {
@@ -41,7 +41,8 @@ const client = {
         getCalendars: async(token: string) => CalendarController.getCalendars(token),
         createEvent: async({token, calendarId, event, entryId}: {token: string, calendarId: string, event: object, entryId: string}) => CalendarController.createEvent({token, calendarId, event, entryId}),
         getEventById: async({token, calendarId, eventId}: {token: string, calendarId: string, eventId: string}) => CalendarController.getEventById({token, calendarId, eventId}),
-        getEvents: async({token, calendarId}: {token: string, calendarId: string}) => CalendarController.getEvents({token, calendarId})
+        getEvents: async({token, calendarId}: {token: string, calendarId: string}) => CalendarController.getEvents({token, calendarId}),
+        deleteEventById: async({token, calendarId, eventId}: {token: string, calendarId: string, eventId: string}) => CalendarController.deleEventById({token, calendarId, eventId}),
     }
 }
 
