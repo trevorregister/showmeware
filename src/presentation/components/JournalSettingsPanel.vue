@@ -3,11 +3,11 @@
         <v-expansion-panels>
             <v-expansion-panel title="Journal Settings" elevation="5">
                 <v-expansion-panel-text>
-                    <v-row>
+<!--                     <v-row>
                         <v-col align="center">
                             {{ journal.id }}
                         </v-col>
-                    </v-row>
+                    </v-row> -->
                     <div class="color-picker">
                         <ColorPicker
                         :journal="journal"
@@ -36,12 +36,12 @@ const renderKey = ref(0)
 
 const handleChangeColor = (color, journal) => {
     journalStore.changeColor({
-        journal: journal, 
+        journal: journal,
         newColor: color
     })
 }
 
-watch( 
+watch(
     () => props.journal,
     () => {
         renderKey.value++
@@ -53,7 +53,7 @@ watch(
 .color-picker {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; 
+    justify-content: center;
 }
 .settings-panel {
     display: flex;
