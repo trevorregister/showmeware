@@ -64,7 +64,7 @@
 
   const onConfirm = () => {
     emit('confirm')
-    if(deleteEvent){
+    if(deleteEvent.value){
       emit('deleteEvent')
     }
     closeModal()
