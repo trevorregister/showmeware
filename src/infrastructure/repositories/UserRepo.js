@@ -25,6 +25,19 @@ const UserRepo = {
             provider: provider,
             options: options
         })
+/*         if(error){
+          throw new Error('sign in error')
+        }
+        let foundSession = null
+        while (!foundSession) {
+          const { data: session } = await supabase.auth.getSession()
+          if (session === null) {
+            await new Promise((resolve) => setTimeout(resolve, 500))
+          }
+          foundSession = true
+          console.log('session', session)
+        }
+        //return session.user.id */
         return data
     },
 

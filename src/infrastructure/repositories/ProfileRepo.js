@@ -1,11 +1,11 @@
 import supabase from "../database/database-service"
 
 const ProfileRepo = {
-    async getProfileByUserId(user_id){
+    async getProfileByUserId(id){
         const { data, error } = await supabase
             .from('profiles')
             .select('*')
-            .eq('user_id', user_id)
+            .eq('id', id)
             .single()
 
         if (error) {

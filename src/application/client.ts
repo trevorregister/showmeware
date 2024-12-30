@@ -7,7 +7,7 @@ import {
     EntriesController, } from './controllers/index'
 const client = {
     profiles: {
-        getProfileByUserId: async (user_id: string) => ProfileController.getProfileByUserId(user_id),
+        getProfileByUserId: async (id: string) => ProfileController.getProfileByUserId(id),
         updateCalendarId: async (calendar_id: string) => ProfileController.updateCalendarId(calendar_id)
     },
     users: {
