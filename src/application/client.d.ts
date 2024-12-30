@@ -1,7 +1,7 @@
 declare module 'client' {
     export const client: {
         profiles: {
-            getProfileByUserId(user_id: string): Promise<any>
+            getProfileByUserId(id: string): Promise<any>
             updateCalendarId(calendar_id: string): Promise<any>
         }
         users: {
