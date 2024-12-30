@@ -7,7 +7,7 @@ const UserRepo = {
             password: password,
             options: {...options}
         })
-
+        console.log(data)
         return data
     },
 
