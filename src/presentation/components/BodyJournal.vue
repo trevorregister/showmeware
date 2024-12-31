@@ -17,7 +17,7 @@
         />
       </v-btn>
     </v-row>
-    <v-row justify="center">
+    <v-row v-if="journal ?? false" justify="center">
       <v-btn class="bg-accent" @click="addEntry">
         <v-icon icon="mdi-note-plus"></v-icon>
       </v-btn>
