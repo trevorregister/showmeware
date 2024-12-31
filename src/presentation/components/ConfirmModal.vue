@@ -9,6 +9,7 @@
         </v-card-text>
         <div style="display: flex; margin-left: 0.75rem;">
           <v-checkbox
+            v-if="props.eventId"
             label="Delete calendar event"
             v-model="deleteEvent"
             />
@@ -47,6 +48,10 @@
     cancelText: {
       type: String,
       default: 'Cancel'
+    },
+    eventId: {
+      type: String,
+      required: false
     }
   })
 

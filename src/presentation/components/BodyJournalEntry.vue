@@ -10,6 +10,7 @@
         <div>
         <ConfirmModal
             v-model="isConfirmModalOpen"
+            :eventId = "props.entry.event?.id ?? null"
             @confirm="deleteEntry"
             @deleteEvent="deleteEvent"
             @cancel="isConfirmModalOpen = false"
