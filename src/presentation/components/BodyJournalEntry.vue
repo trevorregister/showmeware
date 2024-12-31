@@ -5,7 +5,7 @@
             :modelValue="isModalOpen"
             @update:modelValue="isModalOpen = $event"
             :entryId="props.entry.id"
-            @submit="toggleHasEvent"
+            @submit="handleSubmit"
             />
         </div>
         <div>
@@ -35,27 +35,19 @@
                         <div style="display: flex; margin-left: auto;">
                             <v-icon icon="mdi-delete" @click="isConfirmModalOpen = true"/>
                         </div>
-<!--                         <div class="loader" v-if="isLoading"></div> -->
                     </v-card-actions>
-                    <v-card-actions v-if="props.entry.event">
+                    <v-card-actions v-if="hasEvent">
                       <div>
-                        {{ props.entry.event?.summary ?? '' }}
+                        {{ event.summary ?? '' }}
                       </div>
                       <div>
-                        {{ formatEventDate(props.entry.event?.start.dateTime) }}
+                        {{ formatEventDate(event.start.dateTime) }}
                       </div>
                       <div>
-                        <a :href="props.entry.event?.htmlLink" target="_blank"><v-icon class=nav-icon icon="mdi-navigation"/></a>
+                        <a :href="event.htmlLink" target="_blank"><v-icon class=nav-icon icon="mdi-navigation"/></a>
                       </div>
                     </v-card-actions>
                 </v-card>
-<!--                 <v-card class="bg-white" v-else>
-                    <EntryDisplay
-                        :content="props.entry.content"
-                        @toggleShowEditor="toggleShowEditor"
-                        :entryId="props.entry.id"
-                    />
-                </v-card> -->
             </v-col>
         </v-row>
     </v-container>
@@ -63,13 +55,11 @@
 <script setup>
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
-import EntryDisplay from './EntryDisplay.vue'
 import CreateEventModal from './CreateEventModal.vue'
 import { useJournalStore } from '@/presentation/stores/journal'
 import { useUserStore } from '../stores/user'
 import { formatEventDate } from '@/utils'
 import ConfirmModal from './ConfirmModal.vue'
-import { client } from '@/application/client'
 
 const editorContent = ref('')
 const showEditor = ref(true)
@@ -80,6 +70,7 @@ const userStore = useUserStore()
 const isLoading = ref(false)
 const saveDisabled = ref(false)
 const hasEvent = ref(false)
+const event = ref({})
 
 const props = defineProps({
     journalId: {
@@ -109,8 +100,9 @@ const EDITOR_STYLE = {
     height: '120px'
 }
 
-const toggleHasEvent = () => {
+const handleSubmit = (newEvent) => {
   hasEvent.value = !hasEvent.value
+  event.value = newEvent
 }
 
 const saveContent = async () =>{
@@ -121,7 +113,6 @@ const saveContent = async () =>{
         updatedEntry: editorContent.value
     })
     isLoading.value = false
-    //showEditor.value = !showEditor.value
     saveDisabled.value = true
 }
 const openModal = () => {
@@ -148,46 +139,16 @@ const deleteEntry = () => {
     })
 }
 
-const toggleShowEditor = () => {
-    showEditor.value = !showEditor.value
-}
-
-const eventUrl = () => {
-  return `https://calendar.google.com/calendar/u/0/r/eventedit/${props.entry.event.id}`
-}
-
 onMounted(() => {
     editorContent.value = props.entry.content
     hasEvent.value = props.entry.event ? true:  false
+    event.value = props.entry.event ?? {}
 })
 
 </script>
 
 <style scoped>
-.loader {
-  width: 15px;
-  aspect-ratio: 1;
-  display: grid;
-  color: #d8e616;
-  background:
-    linear-gradient(90deg,currentColor 2px,#0000 0 calc(100% - 2px),currentColor 0) center/100% 14px,
-    linear-gradient(0deg, currentColor 2px,#0000 0 calc(100% - 2px),currentColor 0) center/14px 100%,
-    linear-gradient(currentColor 0 0) center/100% 2px,
-    linear-gradient(currentColor 0 0) center/2px 100%;
-  background-repeat: no-repeat;
-  animation: l6 4s infinite linear;
-}
-.loader::before,
-.loader::after {
-  content: "";
-  grid-area: 1/1;
-  background: inherit;
-  transform-origin: inherit;
-  animation: inherit;
-}
-.loader::after {
-  animation-duration: 2s;
-}
+
 @keyframes l6{
   100% {transform:rotate(1turn)}
 }

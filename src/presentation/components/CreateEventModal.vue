@@ -125,7 +125,7 @@
 
   const submitForm = async () => {
     if (validateForm()) {
-      const event = {
+      const newEvent = {
         start: {
           dateTime: `${startDate.value}T${startTime.value}:00`,
           timeZone: 'America/New_York'
@@ -143,10 +143,10 @@
       await client.calendars.createEvent({
         token: token,
         calendarId: calendarId,
-        event: event,
+        event: newEvent,
         entryId: props.entryId
       })
-      emit('submit')
+      emit('submit', newEvent)
       closeModal()
       resetForm()
     }
