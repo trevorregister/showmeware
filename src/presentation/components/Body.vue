@@ -75,9 +75,8 @@ const setImage = () => {
 }
 
 const handleUpdateDotPosition = ({x, y}) => {
-  console.log(x, y)
   const journal = journalStore.getSelectedJournal()
-  console.log(journalStore.getSelectedJournal())
+  journalStore.updateJournalPosition({journal, x, y})
 }
 
 const clickedExistingJournal = ({x, y}) => {

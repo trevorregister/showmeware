@@ -7,11 +7,11 @@ const JournalRepo = {
             .select('*')
             .eq('user_id', user_id)
             .single()
-        
+
         if (error) {
             throw new Error(error.message)
         }
-        
+
         return data
     },
 
@@ -46,7 +46,7 @@ const JournalRepo = {
             .from('journals')
             .delete()
             .eq('id', journal_id)
-        
+
         await supabase
             .from('entries')
             .delete()
@@ -62,6 +62,16 @@ const JournalRepo = {
             .update({circle: journal.circle})
             .eq('id', journal.id)
         return data
+    },
+
+    async updateJournalPosition({journal, x, y}){
+      journal.circle.x = x
+      journal.circle.y = y
+      const { data, error } = await supabase
+        .from('journals')
+        .update({circle: journal.circle})
+        .eq('id', journal.id)
+      return data
     }
 }
 

@@ -117,6 +117,14 @@ export const useJournalStore = defineStore('journalStore', () => {
     return journals.value.find(journal => journal.id === id)
   }
 
+  const updateJournalPosition = async ({journal, x, y}: {journal: Journal, x: Number, y: Number}): Promise<void> => {
+    return await client.journals.updateJournalPosition({
+      journal: journal,
+      x: x,
+      y: y
+    })
+  }
+
   const getEntriesByJournalId = (journalId: string): Entry[] => {
     const journal = journals.value.find(journal => journal.id === journalId)
     return journal ? journal.entries : []
@@ -137,6 +145,7 @@ export const useJournalStore = defineStore('journalStore', () => {
     setSelectedJournal,
     setSelectedEntry,
     changeColor,
-    getSelectedJournal
+    getSelectedJournal,
+    updateJournalPosition
   }
 })
