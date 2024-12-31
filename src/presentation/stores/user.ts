@@ -67,8 +67,8 @@ export const useUserStore = defineStore('userStore', () => {
         const session = await client.users.getSession()
         authToken.value = session.session.provider_token
         user_id.value = session.session.user.id
-/*         const profile = await client.profiles.getProfileByUserId(user_id.value)
-        calendar_id.value = profile.calendar_id */
+        const profile = await client.profiles.getProfileByUserId(user_id.value)
+        calendar_id.value = profile.calendar_id
         localStorage.setItem('authToken', authToken.value)
       } catch (err) {
         handleError(err)
