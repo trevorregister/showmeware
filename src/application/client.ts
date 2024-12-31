@@ -30,8 +30,9 @@ const client = {
         createJournal: async(journal: object) => JournalController.createJournal(journal),
         getJournals: async() => JournalController.getJournals(),
         deleteJournalById: async(journal_id: string) => JournalController.deleteJournalById(journal_id),
-        changeColor: async({journal, newColor}: {journal: Journal, newColor: string}) => JournalController.changeColor({journal, newColor})
-    },
+        changeColor: async({journal, newColor}: {journal: Journal, newColor: string}) => JournalController.changeColor({journal, newColor}),
+        updateJournalPosition: async({journal, x, y}: {journal: Journal, x: Number, y: Number}) => JournalController.updateJournalPosition({journal, x, y})
+      },
     entries: {
         updateEntryById: async({entry_id, content}: {entry_id: string, content: object}) => EntriesController.updateEntryById({entry_id, content}),
         createEntry: async({journal_id, entry}: {journal_id: string, entry: object}) => EntriesController.createEntry({journal_id, entry}),

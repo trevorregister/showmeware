@@ -1,8 +1,9 @@
-import { 
-    CreateJournal, 
-    GetJournals, 
+import {
+    CreateJournal,
+    GetJournals,
     DeleteJournalById,
-    ChangeColor 
+    ChangeColor,
+    UpdateJournalPosition
 } from '../use-cases/journals/index'
 
 const JournalController = {
@@ -16,7 +17,10 @@ const JournalController = {
         return await DeleteJournalById.execute(journal_id)
     },
     async changeColor({journal, newColor}){
-        return await ChangeColor.execute({journal, newColor}) 
+        return await ChangeColor.execute({journal, newColor})
+    },
+    async updateJournalPosition({journal, x, y}){
+      return await UpdateJournalPosition.execute({journal, x, y})
     }
 }
 

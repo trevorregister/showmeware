@@ -2,7 +2,7 @@
   <v-container align="top" justify="center">
     <v-stage
       :config="stageSize"
-      @click="handleStageClick"
+      @mousedown="handleStageClick"
     >
       <v-layer>
         <v-image :config="{image: image}" />
@@ -10,6 +10,7 @@
           v-for="journal in journals"
           :key="journal.id"
           :config="journal.circle"
+          @updateDotPosition="handleUpdateDotPosition"
         />
       </v-layer>
     </v-stage>
@@ -73,11 +74,16 @@ const setImage = () => {
   }
 }
 
+const handleUpdateDotPosition = ({x, y}) => {
+  const journal = journalStore.getSelectedJournal()
+  journalStore.updateJournalPosition({journal, x, y})
+}
+
 const clickedExistingJournal = ({x, y}) => {
    return journals.value.some(journal => {
     const dx = x - journal.circle.x
     const dy = y - journal.circle.y
-    const distance = Math.sqrt(dx * dx + dy * dy) 
+    const distance = Math.sqrt(dx * dx + dy * dy)
     if(distance < journal.circle.radius + CLICK_AREA_TOLERANCE){
       journalStore.setSelectedJournal(journal.id)
       return true
@@ -103,11 +109,11 @@ onMounted(() => {
   nextTick(() => {
     journalStore.setSelectedJournal(journals.value[0].id)
   })
-  
+
   return () => {
     window.removeEventListener('resize', updateStageDimensions)
-  }  
-  
+  }
+
 })
 </script>
 

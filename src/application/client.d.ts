@@ -16,6 +16,7 @@ declare module 'client' {
             createJournal(journal: object): Promise<any>
             getJournals(): Promise<any>
             changeColor({journal, newColor})
+            updateJournalPosition({journal, x, y})
         }
     }
 }
