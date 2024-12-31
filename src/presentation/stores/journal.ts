@@ -15,8 +15,8 @@ export const useJournalStore = defineStore('journalStore', () => {
 
   const addJournal = async (journal: Journal): Promise<void> => {
     try {
-      await client.journals.createJournal(journal)
       journals.value.push(journal)
+      await client.journals.createJournal(journal)
     } catch (err) {
       handleError(err)
     }
