@@ -36,7 +36,7 @@
       }
   })
 
-  const emits = defineEmits(['stopDrag'])
+  const emits = defineEmits(['updateDotPosition'])
 
   const updateDotPosition = (e) => {
     const dot = e.target

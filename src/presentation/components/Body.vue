@@ -2,7 +2,7 @@
   <v-container align="top" justify="center">
     <v-stage
       :config="stageSize"
-      @click="handleStageClick"
+      @mousedown="handleStageClick"
     >
       <v-layer>
         <v-image :config="{image: image}" />
@@ -75,8 +75,9 @@ const setImage = () => {
 }
 
 const handleUpdateDotPosition = ({x, y}) => {
-  console.log('update')
   console.log(x, y)
+  const journal = journalStore.getSelectedJournal()
+  console.log(journalStore.getSelectedJournal())
 }
 
 const clickedExistingJournal = ({x, y}) => {
