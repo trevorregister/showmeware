@@ -5,6 +5,7 @@
             :modelValue="isModalOpen"
             @update:modelValue="isModalOpen = $event"
             :entryId="props.entry.id"
+            @submit="toggleHasEvent"
             />
         </div>
         <div>
@@ -29,7 +30,7 @@
                         @textChange="enableSave"
                     />
                     <v-card-actions>
-                        <v-icon icon="mdi-calendar-plus" @click="openModal" :disabled="props.entry.event? true: false"/>
+                        <v-icon icon="mdi-calendar-plus" @click="openModal" :disabled="hasEvent"/>
                         <v-icon icon="mdi-content-save" @click="saveContent" :disabled="saveDisabled"/>
                         <div style="display: flex; margin-left: auto;">
                             <v-icon icon="mdi-delete" @click="isConfirmModalOpen = true"/>
@@ -78,6 +79,7 @@ const journalStore = useJournalStore()
 const userStore = useUserStore()
 const isLoading = ref(false)
 const saveDisabled = ref(false)
+const hasEvent = ref(false)
 
 const props = defineProps({
     journalId: {
@@ -105,6 +107,10 @@ const EDITOR_OPTIONS = {
 
 const EDITOR_STYLE = {
     height: '120px'
+}
+
+const toggleHasEvent = () => {
+  hasEvent.value = !hasEvent.value
 }
 
 const saveContent = async () =>{
@@ -152,6 +158,7 @@ const eventUrl = () => {
 
 onMounted(() => {
     editorContent.value = props.entry.content
+    hasEvent.value = props.entry.event ? true:  false
 })
 
 </script>

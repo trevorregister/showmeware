@@ -72,7 +72,7 @@
       </v-card>
     </v-dialog>
   </template>
-  
+
   <script setup>
   import { ref, defineEmits, defineProps, watch } from 'vue'
   import CancelButton from './CancelButton.vue'
@@ -89,9 +89,9 @@
       required: true
     }
   })
-  
+
   const emit = defineEmits(['update:modelValue', 'submit'])
-  
+
   const dialog = ref(props.modelValue)
   const title = ref('')
   const description = ref('')
@@ -100,7 +100,7 @@
   const endDate = ref('')
   const endTime = ref('')
   const userStore = useUserStore()
-  
+
   watch(() => props.modelValue, (newValue) => {
     dialog.value = newValue
   })
@@ -110,19 +110,19 @@
   }
 
   const setEndTime = (startTime) => {
-    const hours = startTime.split(':')[0] 
+    const hours = startTime.split(':')[0]
     const minutes = startTime.split(':')[1]
     endTime.value = `${parseInt(hours)+1}:${minutes}`
   }
-  
+
   watch(dialog, (newValue) => {
     emit('update:modelValue', newValue)
   })
-  
+
   const closeModal = () => {
     emit('update:modelValue', false)
   }
-  
+
   const submitForm = async () => {
     if (validateForm()) {
       const event = {
@@ -141,20 +141,21 @@
       const calendarId = userStore.getCalendarId()
       const token = userStore.getAuthToken()
       await client.calendars.createEvent({
-        token: token, 
-        calendarId: calendarId, 
+        token: token,
+        calendarId: calendarId,
         event: event,
         entryId: props.entryId
       })
+      emit('submit')
       closeModal()
       resetForm()
     }
   }
-  
+
   const validateForm = () => {
     return title.value && startDate.value && startTime.value && endDate.value && endTime.value
   }
-  
+
   const resetForm = () => {
     title.value = ''
     description.value = ''
