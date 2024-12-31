@@ -1,7 +1,7 @@
 class BaseError extends Error {
     constructor (message) {
     super()
-   
+
     Object.setPrototypeOf(this, new.target.prototype)
     this.message = message
     Error.captureStackTrace(this)
@@ -28,12 +28,12 @@ export function useErrorHandler(){
     const handleError = (err) => {
         console.log(err ?? 'none')
         if (!err) return
-        
+
         error.value = err
-        if(err.status === 401 || err.status === 403){
+        if(err.status === 401 || err.status === 403 || err.message === 'Auth'){
             router.push('/login')
         }
-        
+
         else if (err instanceof HttpError){
             switch (err.code){
                 case 401 || 403:
