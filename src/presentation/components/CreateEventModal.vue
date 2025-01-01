@@ -77,14 +77,18 @@
 import { ref, defineEmits, defineProps, watch } from 'vue'
 import CancelButton from './CancelButton.vue'
 import ConfirmButton from './ConfirmButton.vue'
-import { client } from '@/application/client'
 import { useUserStore } from '@/presentation/stores/user'
+import { useJournalStore } from '@/presentation/stores/journal'
 const props = defineProps({
   modelValue: {
     type: Boolean,
     required: true
   },
   entryId: {
+    type: String,
+    required: true
+  },
+  journalId: {
     type: String,
     required: true
   }
@@ -100,6 +104,7 @@ const startTime = ref('')
 const endDate = ref('')
 const endTime = ref('')
 const userStore = useUserStore()
+const journalStore = useJournalStore()
 
 watch(() => props.modelValue, (newValue) => {
   dialog.value = newValue
@@ -140,11 +145,12 @@ const submitForm = async () => {
 
     const calendarId = userStore.getCalendarId()
     const token = userStore.getAuthToken()
-    await client.calendars.createEvent({
+    journalStore.createEvent({
       token: token,
       calendarId: calendarId,
       event: event,
-      entryId: props.entryId
+      entryId: props.entryId,
+      journalId: props.journalId
     })
     closeModal()
     resetForm()

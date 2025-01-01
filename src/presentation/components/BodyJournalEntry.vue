@@ -5,6 +5,7 @@
           :modelValue="isModalOpen"
           @update:modelValue="isModalOpen = $event"
           :entryId="props.entry.id"
+          :journalId="props.journalId"
           />
       </div>
       <div>
@@ -29,22 +30,22 @@
                       @textChange="enableSave"
                   />
                   <v-card-actions>
-                      <v-icon icon="mdi-calendar-plus" @click="openModal" :disabled="props.entry.event? true: false"/>
+                      <v-icon icon="mdi-calendar-plus" @click="openModal" :disabled="hasEvent"/>
                       <v-icon icon="mdi-content-save" @click="saveContent" :disabled="saveDisabled"/>
                       <div style="display: flex; margin-left: auto;">
                           <v-icon icon="mdi-delete" @click="isConfirmModalOpen = true"/>
                       </div>
                   </v-card-actions>
-                  <v-card-actions v-if="props.entry.event">
+                  <v-card-actions v-if="hasEvent">
                     <div>
-                      {{ props.entry.event?.summary ?? '' }}
+                      {{ props.entry.event.summary }}
                     </div>
                     <div>
-                      {{ formatEventDate(props.entry.event?.start.dateTime) }}
+                      {{ formatEventDate(props.entry.event.start.dateTime) }}
                     </div>
-                    <div>
-                      <a :href="props.entry.event?.htmlLink" target="_blank"><v-icon class=nav-icon icon="mdi-navigation"/></a>
-                    </div>
+<!--                     <div>
+                      <a :href="props.entry.event.htmlLink" target="_blank"><v-icon class=nav-icon icon="mdi-navigation"/></a>
+                    </div> -->
                   </v-card-actions>
               </v-card>
           </v-col>
@@ -54,13 +55,11 @@
 <script setup>
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
-import EntryDisplay from './EntryDisplay.vue'
 import CreateEventModal from './CreateEventModal.vue'
 import { useJournalStore } from '@/presentation/stores/journal'
 import { useUserStore } from '../stores/user'
 import { formatEventDate } from '@/utils'
 import ConfirmModal from './ConfirmModal.vue'
-import { client } from '@/application/client'
 
 const editorContent = ref('')
 const showEditor = ref(true)
@@ -132,6 +131,10 @@ const deleteEntry = () => {
       entryId: props.entry.id
   })
 }
+
+const hasEvent = computed(() => {
+  return props.entry.event && Object.keys(props.entry.event).length > 0
+})
 
 onMounted(() => {
   editorContent.value = props.entry.content

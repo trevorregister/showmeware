@@ -4,15 +4,17 @@ import { generateId } from '@/utils'
 interface IEntry {
     id: string,
     content: Delta,
-    event?: object
+    event: object
 }
 
 export default class Entry implements IEntry {
-    id: string;
+    id: string
     content: Delta
+    event: object
 
     constructor() {
         this.id = generateId()
         this.content = new Delta()
+        this.event = {}
     }
 }

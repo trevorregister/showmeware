@@ -72,6 +72,7 @@
     if(deleteEvent.value){
       emit('deleteEvent')
     }
+    deleteEvent.value = false
     closeModal()
   }
 

@@ -130,6 +130,24 @@ export const useJournalStore = defineStore('journalStore', () => {
     return journal ? journal.entries : []
   }
 
+  const createEvent = async ({token, calendarId, event, entryId, journalId}: {token: string, calendarId: string, event: object, entryId: string, journalId: string}) => {
+    const journal = journals.value.find(j => j.id === journalId)
+    if(journal){
+      const entryIndex = journal.entries.findIndex(e => e.id === entryId)
+      journal.entries[entryIndex].event = event
+    }
+    try {
+      await client.calendars.createEvent({
+        token: token,
+        calendarId: calendarId,
+        event: event,
+        entryId: entryId
+      })
+    } catch (err) {
+      handleError(err)
+    }
+  }
+
   return {
     journals,
     selectedJournal,
@@ -146,6 +164,7 @@ export const useJournalStore = defineStore('journalStore', () => {
     setSelectedEntry,
     changeColor,
     getSelectedJournal,
-    updateJournalPosition
+    updateJournalPosition,
+    createEvent
   }
 })
