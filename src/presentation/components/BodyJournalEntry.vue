@@ -1,55 +1,55 @@
 <template>
   <v-container align="center" justify="center">
-      <div>
-      <CreateEventModal
-          :modelValue="isModalOpen"
-          @update:modelValue="isModalOpen = $event"
-          :entryId="props.entry.id"
-          :journalId="props.journalId"
+    <div>
+    <CreateEventModal
+      :modelValue="isModalOpen"
+      @update:modelValue="isModalOpen = $event"
+      :entryId="props.entry.id"
+      :journalId="props.journalId"
+      />
+    </div>
+    <div>
+    <ConfirmModal
+      v-model="isConfirmModalOpen"
+      :eventId = "props.entry.event?.id ?? null"
+      @confirm="deleteEntry"
+      @deleteEvent="deleteEvent"
+      @cancel="isConfirmModalOpen = false"
+      />
+    </div>
+    <v-row>
+      <v-col>
+        <v-card class="bg-white" v-if="showEditor" elevation="5">
+          <QuillEditor
+            :content="props.entry.content"
+            :options="EDITOR_OPTIONS"
+            theme="snow"
+            :style="EDITOR_STYLE"
+            @update:content="editContent"
+            @blur="saveContent"
+            @textChange="enableSave"
           />
-      </div>
-      <div>
-      <ConfirmModal
-          v-model="isConfirmModalOpen"
-          :eventId = "props.entry.event?.id ?? null"
-          @confirm="deleteEntry"
-          @deleteEvent="deleteEvent"
-          @cancel="isConfirmModalOpen = false"
-          />
-      </div>
-      <v-row>
-          <v-col>
-              <v-card class="bg-white" v-if="showEditor" elevation="5">
-                  <QuillEditor
-                      :content="props.entry.content"
-                      :options="EDITOR_OPTIONS"
-                      theme="snow"
-                      :style="EDITOR_STYLE"
-                      @update:content="editContent"
-                      @blur="saveContent"
-                      @textChange="enableSave"
-                  />
-                  <v-card-actions>
-                      <v-icon icon="mdi-calendar-plus" @click="openModal" :disabled="hasEvent"/>
-                      <v-icon icon="mdi-content-save" @click="saveContent" :disabled="saveDisabled"/>
-                      <div style="display: flex; margin-left: auto;">
-                          <v-icon icon="mdi-delete" @click="isConfirmModalOpen = true"/>
-                      </div>
-                  </v-card-actions>
-                  <v-card-actions v-if="hasEvent">
-                    <div>
-                      {{ props.entry.event.summary }}
-                    </div>
-                    <div>
-                      {{ formatEventDate(props.entry.event.start.dateTime) }}
-                    </div>
+          <v-card-actions>
+            <v-icon icon="mdi-calendar-plus" @click="openModal" :disabled="hasEvent"/>
+            <v-icon icon="mdi-content-save" @click="saveContent" :disabled="saveDisabled"/>
+            <div style="display: flex; margin-left: auto;">
+                <v-icon icon="mdi-delete" @click="isConfirmModalOpen = true"/>
+            </div>
+          </v-card-actions>
+          <v-card-actions v-if="hasEvent">
+            <div>
+              {{ props.entry.event.summary }}
+            </div>
+            <div>
+              {{ formatEventDate(props.entry.event.start.dateTime) }}
+            </div>
 <!--                     <div>
-                      <a :href="props.entry.event.htmlLink" target="_blank"><v-icon class=nav-icon icon="mdi-navigation"/></a>
-                    </div> -->
-                  </v-card-actions>
-              </v-card>
-          </v-col>
-      </v-row>
+              <a :href="props.entry.event.htmlLink" target="_blank"><v-icon class=nav-icon icon="mdi-navigation"/></a>
+            </div> -->
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 <script setup>
