@@ -43,9 +43,9 @@
                     <div>
                       {{ formatEventDate(props.entry.event.start.dateTime) }}
                     </div>
-                    <div>
+<!--                     <div>
                       <a :href="props.entry.event.htmlLink" target="_blank"><v-icon class=nav-icon icon="mdi-navigation"/></a>
-                    </div>
+                    </div> -->
                   </v-card-actions>
               </v-card>
           </v-col>

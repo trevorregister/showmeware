@@ -77,7 +77,6 @@
 import { ref, defineEmits, defineProps, watch } from 'vue'
 import CancelButton from './CancelButton.vue'
 import ConfirmButton from './ConfirmButton.vue'
-import { client } from '@/application/client'
 import { useUserStore } from '@/presentation/stores/user'
 import { useJournalStore } from '@/presentation/stores/journal'
 const props = defineProps({
