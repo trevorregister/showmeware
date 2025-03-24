@@ -15,3 +15,6 @@ Journals can contain as many entries as you need to keep track of your symptoms.
 Quickly create a google calendar event to correspond with a specific entry. Use this feature to set doctor's appointments or track the timeline of symptoms in a visual way.
 
 ![calendar (1)](https://github.com/user-attachments/assets/13641229-8de5-4e93-9b2a-09005653349c)
+
+## Tools
+Built with Vue3, Typescript, Supabase, and Konva.
